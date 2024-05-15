@@ -34,7 +34,7 @@ function SigninContainer() {
          return;
       } else {
          try {
-            const res = await axios.post('http://localhost:3000/signup', body);
+            const res = await axios.post('http://localhost:3001/signup', body);
             console.log(res);
             
             // const userDocRef = doc(collection(db, 'user'), data.user.uid);

@@ -30,6 +30,7 @@ const LoginContainer = () => {
 
   const onLogin = useCallback(() => {
     dispatch(startLogin(loginInfo));
+    navigator('/');
   }, [loginInfo]);
 
 

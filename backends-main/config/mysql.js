@@ -5,7 +5,7 @@ var db_info = {
     user: "tester",
     password: "1234",
     database: "test",
-    port: 3306
+    port: 43306
 };
 
 module.exports = {

@@ -30,7 +30,7 @@ export const clearSelect = createAction(CLEAR_SELECT);
 
 const initialState = {
    lessons: [],
-   select: [],
+   select: [], /// 일단 현재 검색한 강의들을 일시 저장하는 곳
 };
 
 function* insertSaga(action) {
@@ -42,15 +42,15 @@ function* insertSaga(action) {
          type: INSERT_LESSON_FAILURE,
          payload: 'already added'
       });
-      yield put(finishLoading('lesson'));
+      
    } else {
       yield put({
          type: INSERT_LESSON_SUCCESS,
          payload: action.payload
       })
-      yield put(finishLoading('lesson'));
       // yield put(INSERT_LESSON_SUCCESS);
    }
+   yield put(finishLoading('lesson'));
 }
 
 function* deleteSaga(action) {
@@ -77,10 +77,13 @@ function* saveSaga(action) {
    const uid = yield select(state => state.login.uid);
    
    try {
-      const userDocRef = yield doc(collection(db, 'user'), uid);
-      setDoc(userDocRef, {
-         table: lessons
-      }, { merge: true });
+      ///수정 2(디비에 사용자의 강의목록을 저장하는 부분)
+      // const userDocRef = yield doc(collection(db, 'user'), uid);
+      // setDoc(userDocRef, {
+      //    table: lessons
+      // }, { merge: true });
+      // yield axios.post('/lesson/saveSelectedLessons', ...);
+      //////
       yield put({
          type: SAVE_LESSON_SUCCESS,
       })

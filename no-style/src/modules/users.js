@@ -14,7 +14,7 @@ export const initUser = createAction(INIT_USER, (user) => user);
 export const clearUser = createAction(CLS_USER);
 
 const initialState = {
-   users: [],
+   users: [], ///초기 렌더링시 현재 로그인 되어있는 사용자의 강의정보를 UserListContainer에서 불러옴
 }
 
 function* addUserSaga(action) {
@@ -50,6 +50,7 @@ const users = handleActions({
    }),
    [INIT_USER]: (state, {payload: user}) => ({
       users: [...user],
+      //// 이 부분 미들웨어로 빼야함
    }),
    [CLS_USER]: (_) => ({
       users: [],

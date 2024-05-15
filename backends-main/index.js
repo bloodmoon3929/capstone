@@ -3,12 +3,22 @@ const multer = require("multer");
 const cors = require("cors");
 const fs = require("fs");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken');
+
+
+// 토큰 테스트를 위해 주석처리
 const db = require("./config/mysql.js");
+
 const app = express();
+
+// app.use(cookieParser());
+
+// 토큰 테스트를 위해 주석처리
 const conn = db.init();
 
 
-app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 3001);
 app.set("host", process.env.HOST || "0.0.0.0");
 
 app.use(cors());
@@ -30,18 +40,33 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/login', function(req, res) {
     console.log('/login');
+
+
     // console.log(req.body);
     const {email, password} = req.body;
     // console.log(`name : ${name}, states : ${states}`);
-    const query='SELECT uid from usertable where email = ? AND password = ?';
+
+    //토큰 부분 시작
+    // res.cookie('login', 0, {
+    //   maxAge: 1000 * 10,
+    //   httpOnly: true,
+    // });
+
+    // res.status(200);
+    // res.send();
+    ///토큰 부분 끝
+
+    // 토큰 테스트를 위해 주석처리
+    const query='SELECT uid, email from user where email = ? AND password = ?';
     conn.query(query,[email, password],(error, rows, fields) => {
-    //conn.query('SELECT * from usertable', (error, rows, fields) => {
+      let status;
       if(rows.length > 0) {
         ///정상적인 응답의 경우
-        res.status(200);
+        ///쿼리문을 통해서 email하고 uid를 받아 res로 전달함
+        status = 200;
       } else {
-        ///비정상적인 응답의 경우
-        res.status(401);
+        ///비정상적인 응답의 경우 401
+        status = 401;
       }
 
 
@@ -49,10 +74,56 @@ app.post('/login', function(req, res) {
         console.log("EEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRR");
         throw error;
        }
-       console.log('User info is : ', rows);
-       res.send(rows);
+       if(status == 200) {
+        res.status(status).send(rows);
+       } else {
+        res.status(status).send();
+       }
+       
 
     });
+});
+
+app.post('/lesson/getSearchedLessons', function(req, res) {
+  console.log('/searchlesson')
+  const {keyword, type} = req.body;
+  console.log(`keyword : ${keyword}, type : ${type}`);
+  const query=`SELECT app.index, subject, professor, number, score, time, time2, time3 from app where ${type} like '%${keyword}%'`;
+  console.log(query);
+  conn.query(query, (err, rows, fields)=>{
+    console.log(rows);
+    let status;
+      if(rows.length > 0) {
+        ///정상적인 응답의 경우
+        ///쿼리문을 통해서 email하고 uid를 받아 res로 전달함
+        status = 200;
+      } else {
+        ///비정상적인 응답의 경우 401
+        status = 401;
+      }
+
+
+      if(err) {
+        console.log("error in search lesson");
+        throw err;
+       }
+       if(status == 200) {
+        res.status(status).send(rows);
+       } else {
+        res.status(status).send();
+       }
+       
+
+
+
+
+
+
+  })
+});
+
+app.get('/lesson/saveSelectedLessons', function(req, res) {
+
 });
 
 app.post('/signup', function(req, res){
@@ -60,7 +131,10 @@ app.post('/signup', function(req, res){
   const {email, password, uid} = req.body;
   console.log(email, password, uid);
 
-  const query='SELECT email from usertable where email = ?';
+  
+
+  // 토큰 테스트를 위해 주석처리
+  const query='SELECT email from user where email = ?';
 
   conn.query(query,[email],(e,result,field)=>{
     if(result.length>0)//email이 중복될 때
@@ -70,7 +144,7 @@ app.post('/signup', function(req, res){
     else//중복이 없을때
     {
       console.log('db에 저장함');
-      const query2 = 'INSERT INTO usertable (email, password, uid) VALUES (?, ?, ?)';
+      const query2 = 'INSERT INTO user (email, password, uid) VALUES (?, ?, ?)';
 
       conn.query(query2,[email, password, uid],(err,resu)=>{
         if(err) {

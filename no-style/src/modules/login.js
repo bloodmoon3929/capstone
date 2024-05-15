@@ -24,14 +24,24 @@ function* loginSaga(action) {
    yield put(startLoading('login'));
    try {
       const body = action.payload;
+
+      const {email, password} = body;
       // const response = yield signInWithEmailAndPassword(authService, email, password);
-      const response = yield axios.post('http://localhost:3000/login', body);
-      console.log(response);
+      const response = yield axios.post('http://localhost:3001/login', body);
+      const {email: resEmail, uid: resUid} = response.data[0];
+      console.log(response.data);
+      console.log(resEmail, resUid);
+      //db에서 이메일이랑 uid를 얻어서 
+
+      // user : {
+      //    uid : '----',
+      //    email: '----',
+      // }
       yield put({
          type: LOGIN_SUCCESS,
-         payload: response.user
+         payload: response.data[0]
       });
-      yield localStorage.setItem("uid", response.user.uid);
+      yield localStorage.setItem("uid", resUid);
    } catch(e) {
       yield put({
          type: LOGIN_FAILURE,

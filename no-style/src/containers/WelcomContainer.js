@@ -17,7 +17,7 @@ const WelcomeContainer = () => {
       navigator('/arrageMeeting')
    }, []);
 
-   useAuthStateChanged(authService, navigator, dispatch);
+   // useAuthStateChanged(authService, navigator, dispatch);
    return (
    <Welcome onGotoTimeTable={onGotoTimeTable} onGotoArrangeMeeting={onGotoArrangeMeeting}></Welcome>
    )

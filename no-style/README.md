@@ -96,3 +96,6 @@ __dirname은 서버파일의 절대주소이며 전달인자를 통해 절대경
 
 즉 절대 경로를 전달하여 build디렉토리에있는 파일들을 정적파일로서 제공할 위치를 지정하는 함수가 express.static이다.
 
+## login store
+
+![Alt text](image.png)
