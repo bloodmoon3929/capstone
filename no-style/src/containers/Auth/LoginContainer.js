@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {useState} from 'react';
 import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { startLogin } from '../../modules/login';
 import Login from '../../components/Auth/Login';
 
@@ -10,11 +10,14 @@ import Login from '../../components/Auth/Login';
 
 const LoginContainer = () => {
   const [loginInfo, setLoginInfo] = useState({
-  email: '',
-  password: ''
+    email: '',
+    password: '',
   });
+
   const navigator = useNavigate();
   const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.loading.login);
 
   const onChange = useCallback((e) => {
   setLoginInfo((state) => ({
@@ -28,10 +31,28 @@ const LoginContainer = () => {
     navigator('/signIn', {replace: true});
   }, []);
 
-  const onLogin = useCallback(() => {
+
+  const onLogin = useCallback((e) => {
+    e.preventDefault();
     dispatch(startLogin(loginInfo));
-    navigator('/');
+    // const token = localStorage.getItem('token');
+    // if(token) {
+      
+    //   navigator('/');
+    // } else {
+    //   console.log(123);
+    // }
   }, [loginInfo]);
+
+  useEffect(() => {
+    if(loading === false) {
+      const token = localStorage.getItem('token');
+      if(token) {
+        navigator('/');
+      } 
+    }
+  }, [loading]);
+  
 
 
   return (

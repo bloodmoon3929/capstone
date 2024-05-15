@@ -2,12 +2,15 @@ import { createAction, handleActions } from "redux-actions";
 import { put, takeLatest } from "redux-saga/effects";
 import { finishLoading, startLoading } from "./loading";
 import { authService } from "../fbInstance";
+import {jwtDecode} from 'jwt-decode'
 import { signInWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios';
+import { useState } from "react";
 
 const LOGIN = 'login/LOGIN';
 const LOGIN_SUCCESS = '/login/SUCCESS';
 const LOGIN_FAILURE = '/login/FAILURE';
+const UNAUTHERIZE = '/login/UNAUTHERIZE';
 
 const LOGOUT = '/login/LOGOUT';
 
@@ -18,30 +21,33 @@ export const usereffect = createAction(LOGIN_SUCCESS, (user) => user);
 const initialState = {
    email: '',
    uid: '',
+   isValid: false,
 };
 
 function* loginSaga(action) {
    yield put(startLoading('login'));
    try {
       const body = action.payload;
-
-      const {email, password} = body;
       // const response = yield signInWithEmailAndPassword(authService, email, password);
       const response = yield axios.post('http://localhost:3001/login', body);
-      const {email: resEmail, uid: resUid} = response.data[0];
-      console.log(response.data);
-      console.log(resEmail, resUid);
-      //db에서 이메일이랑 uid를 얻어서 
 
-      // user : {
-      //    uid : '----',
-      //    email: '----',
-      // }
+      const { token } = response.data;      
+      const decodedToken = jwtDecode(token);
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(decodedToken));
+
+      console.log({email : decodedToken.email, uid: decodedToken.uid});
+
       yield put({
          type: LOGIN_SUCCESS,
-         payload: response.data[0]
+         payload: {
+            email : decodedToken.email,
+            uid: decodedToken.uid
+         }
       });
-      yield localStorage.setItem("uid", resUid);
+
+      //db에서 이메일이랑 uid를 얻어서 
    } catch(e) {
       yield put({
          type: LOGIN_FAILURE,
@@ -51,11 +57,11 @@ function* loginSaga(action) {
    yield put(finishLoading('login'));
 }
 
+///depreciated
 function* logoutSaga(action) {
    yield put(startLoading('logout'));
    try {
-      const response = yield authService.signOut();
-      console.log(response);
+      
    } catch(e) {
       console.log(e);
    }
@@ -72,16 +78,20 @@ const login = handleActions({
       ...state
    }),
    [LOGIN_SUCCESS]: (state, {payload: user}) => ({
-      ...state,
       email: user.email,
-      uid: user.uid
+      uid: user.uid,
+      isValid: true,
    }),
    [LOGIN_FAILURE]: (state, action) => ({
 
    }),
    [LOGOUT]: (state, action) => ({
       email: '',
-      uid: ''
+      uid: '',
+      isValid: false,
+   }),
+   [UNAUTHERIZE]: (state, action) => ({
+      ...state,
    })
 }, initialState);
 

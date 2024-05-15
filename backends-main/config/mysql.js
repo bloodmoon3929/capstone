@@ -1,7 +1,15 @@
 var mysql = require("mysql2");
 
 var db_info = {
-    host: "203.234.52.138",
+    // 황룡도서관 세팅값
+    // host: "203.234.52.138",
+    // user: "tester",
+    // password: "1234",
+    // database: "test",
+    // port: 43306
+
+    // 연구실 세팅값
+    host: "203.234.48.124",
     user: "tester",
     password: "1234",
     database: "test",

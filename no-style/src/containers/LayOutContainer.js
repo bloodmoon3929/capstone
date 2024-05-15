@@ -7,17 +7,23 @@ import { useCallback, useEffect } from "react";
 import { authService, db } from "../fbInstance";
 import useAuthStateChanged from "../modules/useAuthStateChanged";
 import { doc, getDoc } from "firebase/firestore";
+import { finishLoading, startLoading } from "../modules/loading";
+import axios from "axios";
 const LayOutContainer = () => {
    const dispatch = useDispatch();
    const {lessons} = useSelector((state) => state.lessons);
-   const navigate = useNavigate();
+   const navigator = useNavigate();
    const currentLocation = useLocation();
+
+
    const onLogout = () => {
-      dispatch(startLogout());
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigator('/login');
    }
    
    const onGoback = useCallback(() => {
-      navigate(-1);
+      navigator(-1);
    }, []);
 
    const onDelete = useCallback((lesson) => {
@@ -29,7 +35,7 @@ const LayOutContainer = () => {
    }, []);
 
    const onGoHome = useCallback(() => {
-      navigate('/');
+      navigator('/');
    }, [])
 
    const { email } = useSelector((state) => state.login);

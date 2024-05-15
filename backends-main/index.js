@@ -5,6 +5,7 @@ const fs = require("fs");
 const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken');
+const SECRET_KEY = 'FDSF412QWE32';
 
 
 // 토큰 테스트를 위해 주석처리
@@ -75,7 +76,11 @@ app.post('/login', function(req, res) {
         throw error;
        }
        if(status == 200) {
-        res.status(status).send(rows);
+        // res.status(status).send(rows);
+
+        const token = jwt.sign(rows[0], SECRET_KEY, { expiresIn: '1h' });
+      
+        res.status(status).json({token});
        } else {
         res.status(status).send();
        }
@@ -99,6 +104,7 @@ app.post('/lesson/getSearchedLessons', function(req, res) {
         status = 200;
       } else {
         ///비정상적인 응답의 경우 401
+        ///기존의 데이터베이스의 내용과 기록하려는 내용이 일치하는 경우 409 conflict(추후 개발)
         status = 401;
       }
 
@@ -112,18 +118,27 @@ app.post('/lesson/getSearchedLessons', function(req, res) {
        } else {
         res.status(status).send();
        }
-       
-
-
-
-
-
-
   })
 });
 
 app.get('/lesson/saveSelectedLessons', function(req, res) {
 
+});
+
+app.get('/api/auth-check', (req, res) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).send({ message: 'No token provided' });
+  }
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ message: 'Failed to authenticate token' });
+    }
+
+    res.status(200).send(decoded);
+  });
 });
 
 app.post('/signup', function(req, res){
