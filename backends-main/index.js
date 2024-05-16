@@ -97,8 +97,61 @@ app.post('/lesson/getSearchedLessons', function(req, res) {
   })
 });
 
-app.get('/lesson/saveSelectedLessons', function(req, res) {
+app.post('/api/save', function(req, res) {
+  console.log('/savelesson')
+  const {lessons, uid} =req.body;
+  console.log(lessons);
+  const jLessons = JSON.stringify(lessons);
+  console.log(jLessons);
+  const query=`UPDATE user SET data = ? WHERE uid = ?`;
+  conn.query(query,[jLessons, uid],(err, rows, fields)=>{
+    let status;
+      if(rows.length > 0) {
+        status = 200;
+      } else {
+        status = 401;
+      }
 
+
+      if(err) {
+        console.log("error in update data");
+        throw err;
+       }
+       if(status == 200) {
+        res.status(status).send(rows);
+       } else {
+        res.status(status).send();
+       }
+  })
+});
+
+app.post('/api/init_lesson', function(req, res) {
+  console.log('/initlesson')
+  const {uid} = req.body;
+  const query=`SELECT data FROM user WHERE uid = ?`;
+  conn.query(query,[uid],(err, rows, fields)=>{
+    let status;
+    if(rows.length > 0) {
+      status = 200;
+    } else {
+      status = 401;
+    }
+
+
+    if(err) {
+      console.log("error in init");
+      throw err;
+
+     }
+     if(status == 200) {
+      res.status(status).send(rows[0].data);
+      return;
+     } else {
+      res.status(status).send();
+      return;
+     }
+
+  })
 });
 
 app.get('/api/auth-check', (req, res) => {
