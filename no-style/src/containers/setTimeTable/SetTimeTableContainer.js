@@ -82,6 +82,22 @@ const SetTimeTableContainer = () => {
    //    }
    // }, []);
 
+   useEffect(() => {
+      const {uid} = JSON.parse(localStorage.getItem('user'));
+      console.log(uid);
+      const initData = async () => {
+         try {
+            const response = await axios.post('http://localhost:3001/api/init_lesson', {uid});
+            console.log(response.data);
+            await dispatch(initLesson(response.data));
+         } catch(e) {
+            console.log(e);
+         }
+      }
+
+      initData();
+   }, []);
+
    return (
       <div>
          <div>
