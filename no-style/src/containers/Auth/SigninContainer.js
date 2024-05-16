@@ -6,8 +6,11 @@ import { useNavigate } from 'react-router';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import Signin from '../../components/Auth/Signin';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { usereffect } from '../../modules/login';
 
 function SigninContainer() {
+   const dispatch = useDispatch();
    const [signinInfo, setSigninInfo] = useState({
       email: '',
       password: '',
@@ -34,9 +37,13 @@ function SigninContainer() {
          return;
       } else {
          try {
-            const res = await axios.post('http://localhost:3000/signup', body);
+            const res = axios.post('http://localhost:3001/signup', body);
             console.log(res);
-            
+            dispatch(usereffect({
+               email, uid
+            }));
+
+            navigator('/');
             // const userDocRef = doc(collection(db, 'user'), data.user.uid);
             // setDoc(userDocRef, {displayName: displayName, table: []});
          } catch(e) {

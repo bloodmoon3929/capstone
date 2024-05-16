@@ -10,7 +10,8 @@ const LessonDetailBlock = styled.div`
    justify-content: center;
    align-items: center;
    border-radius: 8px;
-
+   width: 100%;
+   
    box-shadow: 0px 15px 15px 10px rgba(0, 0, 0, 0.3);
 `;
 

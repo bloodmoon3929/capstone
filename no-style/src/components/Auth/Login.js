@@ -113,12 +113,12 @@ const Login = ({onSignIn, onLogin, onChange}) => {
       <div className="background">
         <h2>로그인</h2>
  
-        <div className="form">
+        <form className="form" onSubmit={onLogin}>
           <p><input className="login" type="text" name="email" placeholder="아이디" onChange={onChange} /></p>
           <p><input className="login" type="password" name="password" placeholder="비밀번호" onChange={onChange} /></p>
 
           <p><button className="btn" type="submit" onClick={onLogin}>로그인</button></p>
-        </div>
+        </form>
 
         <p>계정이 없으신가요?  <button className='btn_' onClick={onSignIn}>회원가입</button></p>
       </div>

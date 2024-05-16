@@ -13,7 +13,7 @@ const LessonDetailContainer = () => {
    const dispatch = useDispatch();
 
    useEffect(() => {
-      const data = select.filter(e => e.index === parseInt(index))[0]
+      const data = select.filter(e => e.index === index)[0]
       console.log(data);
       setData(data);
    }, [index]);
