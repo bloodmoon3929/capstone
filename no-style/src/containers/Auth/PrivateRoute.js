@@ -4,13 +4,13 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { finishLoading, startLoading } from '../../modules/loading';
 import { usereffect } from '../../modules/login';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 
 const PrivateRoute = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const dispatch = useDispatch();
-  const naviagtor = useNavigate();
+  const navigate = useNavigate();
   const loading = useSelector((state) => state.loading.login);
 
   useEffect(() => {
@@ -18,11 +18,11 @@ const PrivateRoute = () => {
     console.log('check auth');
 
     const checkAuth = async () => {
-      dispatch(startLoading('login'));
+      dispatch(startLoading('auth-check'));
 
       if (!token) {
         dispatch(finishLoading('auth-check'));
-        navigator('/login');
+        navigate('/login');
         return;
       }
 
@@ -31,13 +31,12 @@ const PrivateRoute = () => {
           headers: { Authorization: `Bearer ${token}` }
         });
 
-        const { restoken } = response.data;      
-         const decodedToken = jwtDecode(restoken);
+        const restoken  = response.data;      
          
         if (response.status === 200) {
             dispatch(usereffect({
-               email : decodedToken.email,
-               uid: decodedToken.uid
+               email : restoken.email,
+               uid: restoken.uid
             }));
         } else {
           setIsAuthenticated(false);
@@ -47,12 +46,12 @@ const PrivateRoute = () => {
         console.error('Authentication check failed', error);
         setIsAuthenticated(false);
       } finally {
-        dispatch(finishLoading('login'));
+        dispatch(finishLoading('auth-check'));
       }
     };
 
     checkAuth();
-  }, []);
+  }, [navigate, dispatch]);
 
   if (loading) {
     return <div>Loading...</div>;

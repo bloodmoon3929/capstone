@@ -16,7 +16,6 @@ import useAuthStateChanged from './modules/useAuthStateChanged';
 import ArrangeMeetingContainer from './containers/arrangeMeeting/ArranageMeetingContainer';
 import Sample from './Sample';
 import { finishLoading, startLoading } from './modules/loading';
-import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import PrivateRoute from './containers/Auth/PrivateRoute';
 
@@ -31,10 +30,14 @@ function App() {
           <Route path='/login' element={<LoginContainer />} />
           <Route path='/signIn' element={<SigninContainer />} />
           <Route path='/' element={<LayOutContainer />}>
-            <Route index element={<WelcomeContainer />} />
+            <Route element={<PrivateRoute></PrivateRoute>}>
+              <Route index element={<WelcomeContainer />} />
+            </Route>
+            
             <Route path='/setTimeTable' element={<PrivateRoute />}>
-              <Route index element={<SetTimeTableContainer />}></Route>
-              <Route path=':index' element={<LessonDetailContainer />} />
+              <Route path='/setTimeTable' element={<SetTimeTableContainer />}>
+                <Route path=':index' element={<LessonDetailContainer />} />
+              </Route>
             </Route>
             <Route path='/arrangeMeeting' element={<PrivateRoute />}>
               <Route index element={<ArrangeMeetingContainer />} />

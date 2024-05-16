@@ -41,50 +41,26 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/login', function(req, res) {
     console.log('/login');
-
-
-    // console.log(req.body);
     const {email, password} = req.body;
-    // console.log(`name : ${name}, states : ${states}`);
+    
 
-    //토큰 부분 시작
-    // res.cookie('login', 0, {
-    //   maxAge: 1000 * 10,
-    //   httpOnly: true,
-    // });
-
-    // res.status(200);
-    // res.send();
-    ///토큰 부분 끝
-
-    // 토큰 테스트를 위해 주석처리
     const query='SELECT uid, email from user where email = ? AND password = ?';
     conn.query(query,[email, password],(error, rows, fields) => {
-      let status;
+
       if(rows.length > 0) {
         ///정상적인 응답의 경우
         ///쿼리문을 통해서 email하고 uid를 받아 res로 전달함
-        status = 200;
+        const token = jwt.sign(rows[0], SECRET_KEY, { expiresIn: '1h' });
+        res.status(200).json({token});
       } else {
         ///비정상적인 응답의 경우 401
-        status = 401;
+        res.status(401).send();
       }
 
-
        if(error) {
-        console.log("EEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRR");
+        console.log('db관련 오류');
         throw error;
        }
-       if(status == 200) {
-        // res.status(status).send(rows);
-
-        const token = jwt.sign(rows[0], SECRET_KEY, { expiresIn: '1h' });
-      
-        res.status(status).json({token});
-       } else {
-        res.status(status).send();
-       }
-       
 
     });
 });
@@ -134,6 +110,9 @@ app.get('/api/auth-check', (req, res) => {
 
   jwt.verify(token, SECRET_KEY, (err, decoded) => {
     if (err) {
+      if (err.name === 'TokenExpiredError') {
+        return res.status(401).send({ message: 'Token expired' });
+      }
       return res.status(401).send({ message: 'Failed to authenticate token' });
     }
 
