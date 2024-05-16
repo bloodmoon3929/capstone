@@ -18,6 +18,7 @@ const LoginContainer = () => {
   const dispatch = useDispatch();
 
   const loading = useSelector((state) => state.loading.login);
+  const isValid = useSelector((state) => state.login.isValid);
 
   const onChange = useCallback((e) => {
   setLoginInfo((state) => ({
@@ -56,7 +57,7 @@ const LoginContainer = () => {
 
 
   return (
-  <Login onChange={onChange} onLogin={onLogin} onSignIn={onSignIn}></Login>
+  <Login onChange={onChange} onLogin={onLogin} onSignIn={onSignIn} isValid={isValid}></Login>
   )
 }
 

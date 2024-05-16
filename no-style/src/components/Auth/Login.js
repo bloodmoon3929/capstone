@@ -107,7 +107,7 @@ const LoginBlock = styled.div`
     } */
 `
 
-const Login = ({onSignIn, onLogin, onChange}) => {
+const Login = ({onSignIn, onLogin, onChange, isValid}) => {
    return(
     <LoginBlock>
       <div className="background">
@@ -116,7 +116,11 @@ const Login = ({onSignIn, onLogin, onChange}) => {
         <form className="form" onSubmit={onLogin}>
           <p><input className="login" type="text" name="email" placeholder="아이디" onChange={onChange} /></p>
           <p><input className="login" type="password" name="password" placeholder="비밀번호" onChange={onChange} /></p>
-
+          {
+            !isValid ? <p style={{
+              color: 'red'
+            }}>유효하지 않은 이메일이거나, 비밀번호가 틀렸습니다</p> : null
+          }
           <p><button className="btn" type="submit" onClick={onLogin}>로그인</button></p>
         </form>
 

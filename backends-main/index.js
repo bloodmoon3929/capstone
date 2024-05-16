@@ -97,7 +97,7 @@ app.post('/lesson/getSearchedLessons', function(req, res) {
   })
 });
 
-app.get('/lesson/saveSelectedLessons', function(req, res) {
+app.get('/api/save', function(req, res) {
 
 });
 
@@ -133,7 +133,7 @@ app.post('/signup', function(req, res){
   conn.query(query,[email],(e,result,field)=>{
     if(result.length>0)//email이 중복될 때
     {
-      res.status(401);
+      res.status(401).send({ message: 'Email already exists' });
     }
     else//중복이 없을때
     {
@@ -142,10 +142,12 @@ app.post('/signup', function(req, res){
 
       conn.query(query2,[email, password, uid],(err,resu)=>{
         if(err) {
+          console.error("Error while inserting data", err);
           res.status(500).send("Error while inserting data");
           return;
         }
-        res.status(200);
+        const token = jwt.sign({ email, uid }, SECRET_KEY, { expiresIn: '1h' });
+        res.status(200).json({ token });
       });
     }
 
