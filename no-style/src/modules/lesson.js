@@ -76,6 +76,7 @@ function* deleteSaga(action) {
 function* saveSaga(action) {
    yield put(startLoading('lesson'));
    const lessons = yield select(state => state.lessons.lessons);
+   console.log(lessons);
    const uid = yield select(state => state.login.uid);
 
    

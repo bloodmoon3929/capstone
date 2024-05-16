@@ -21,7 +21,7 @@ export const usereffect = createAction(LOGIN_SUCCESS, (user) => user);
 const initialState = {
    email: '',
    uid: '',
-   isValid: false,
+   isValid: true,
 };
 
 function* loginSaga(action) {
@@ -83,7 +83,8 @@ const login = handleActions({
       isValid: true,
    }),
    [LOGIN_FAILURE]: (state, action) => ({
-
+      ...state,
+      isValid: false,
    }),
    [LOGOUT]: (state, action) => ({
       email: '',
