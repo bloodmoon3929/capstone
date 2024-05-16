@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'FDSF412QWE32';
 
 
-// 토큰 테스트를 위해 주석처리
 const db = require("./config/mysql.js");
 
 const app = express();
