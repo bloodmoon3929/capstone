@@ -27,18 +27,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 
-// 일반적으로 클라이언트에 보낸 요청에 대한 응답이 정상적인 경우
-// 여기서는 로그인이 완료된 경우 백엔드에서 클라이언트로 보내는 코드
-// status 200번
-
-// 클라이언트에서 보낸 요청의 일부는 존재하고 일부가 존재하지 않는 경우
-// 여기에서는 클라이언트의 이메일 은 맞고 패스워드가 틀린겨우 
-// status 401번
-
-// 이메일조차 데이터베이스에 존재하지 않는 경우
-// 404 -> 401로 숨길 수 있음
-
-
 app.post('/login', function(req, res) {
     console.log('/login');
     const {email, password} = req.body;
