@@ -39,7 +39,9 @@ const PrivateRoute = () => {
                uid: restoken.uid
             }));
         } else {
-          setIsAuthenticated(false);
+          dispatch(finishLoading('auth-check'));
+          navigate('/login');
+          return;
         }
 
       } catch (error) {
