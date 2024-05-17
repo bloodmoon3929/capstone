@@ -99,3 +99,26 @@ __dirname은 서버파일의 절대주소이며 전달인자를 통해 절대경
 ## login store
 
 ![Alt text](image.png)
+
+### backend nodemon 실행에 대한 문제점
+
+global 로 패키지를 설치했을 때 설치 경로가 윈도우 기반으로 작성되었음
+
+이를
+```
+npm config get prefix
+```
+
+로 확인 가능했으며
+
+```
+/Users/khj/Documents/GitHub/capstone/backends-main/C:\Users\User\AppData\Roaming\npm
+```
+
+이런 이상한 경로로 글로벌 설치가 이루어 지고 있는 것을 확인했다 따라서
+
+```
+npm config set prefix /usr/local 
+```
+
+로 글로벌 설치 경로를 변경해 주었다.
