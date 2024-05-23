@@ -197,14 +197,15 @@ app.post('/signup', function(req, res){
   
 })
 
-app.post('/arrageMeeting',function(req,res){
-  console.log('test')
+app.post('/api/initUser',function(req,res){
+  console.log('initialization of user data');
   const{uid}=req.body;
+  console.log(uid);
 
   const query='SELECT data from user where uid=?';
   conn.query(query,[uid],(err, result, field)=>{
     let status;
-    if(result.length > 0) {
+    if(result[0].data.length > 0) {
       status = 200;
     } else {
       status = 401;
@@ -217,7 +218,7 @@ app.post('/arrageMeeting',function(req,res){
 
      }
      if(status == 200) {
-      res.status(status).send(result.data);
+      res.status(status).send(result[0].data);
       return;
      } else {
       res.status(status).send();

@@ -10,7 +10,7 @@ import axios from "axios";
 
 const UserListContainer = ({users}) => {
    const dispatch = useDispatch();
-   const uid = useSelector((state) => state.login.uid);
+
    const add = (e) => { ///e는 현재 유저임
       return () => {
          dispatch(addUser(e.table)); ///e.table은 현재 유저의 테이블을 store.user에 concat하는 부분임
@@ -18,19 +18,31 @@ const UserListContainer = ({users}) => {
    }
 
    useEffect(() => {
-      /// 수정 1 현재 사용자의 강의 정보들을 모두 읽어낸 후 store.user의 user에 저장함
-      const {uid} = JSON.parse(localStorage.getItem('uid'));
-      console.log(uid);
+   //    /// 수정 1 현재 사용자의 강의 정보들을 모두 읽어낸 후 store.user의 user에 저장함
       console.log('initializing current user\'s timetable');
+   //    (async function() {
+   //       const docRef = doc(db, 'user', localStorage.getItem("user").uid);
+   //       console.log(docRef);
+   //       const docSnap = await getDoc(docRef);
+   //       console.log(docSnap.data().table);
+   //       await dispatch(initUser(docSnap.data().table));
+   //    })();
+
+
+   //    return () => {
+   //       dispatch(clearUser());
+   //    }
+   //  }, []);
 
       const listdata = async ()=>{
-         try
-         {
+         try {
+            const { uid } = JSON.parse(localStorage.getItem("user"));
+            console.log(`current uid : ${uid}`);
             const response = await axios.post(
-               'http://localhost:3001/arrageMeeting',{uid}
+               'http://localhost:3001/api/initUser',{uid}
             );
-            console.log(response.data);
-            await dispatch(ArrangeMeetingSchedule(response.data))
+
+            await dispatch(initUser(response.data));
          }
          catch(e)
          {
