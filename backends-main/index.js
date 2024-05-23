@@ -198,6 +198,36 @@ app.post('/signup', function(req, res){
   
 })
 
+app.post('/arrageMeeting',function(req,res){
+  console.log('test')
+  const{uid}=req.body;
+
+  const query='SELECT data from user where uid=?';
+  conn.query(query,[uid],(err, result, field)=>{
+    let status;
+    if(result.length > 0) {
+      status = 200;
+    } else {
+      status = 401;
+    }
+
+
+    if(err) {
+      console.log("error in list");
+      throw err;
+
+     }
+     if(status == 200) {
+      res.status(status).send(result.data);
+      return;
+     } else {
+      res.status(status).send();
+      return;
+     }
+
+  })
+})
+
 
 // // 게시글 목록 보기
 // app.get("/view", function (req, res) {
