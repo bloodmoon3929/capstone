@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'FDSF412QWE32';
 
 
+
 const db = require("./config/mysql.js");
 
 const app = express();

@@ -71,7 +71,7 @@ function SigninContainer() {
             if (e.response.status === 401) {
                alert('이미 존재하는 이메일입니다.');
             } else {
-               alert(`회원가입 실패: ${e.response.status}`);
+               alert('이미 존재하는 학번입니다.');
             }
             } else {
             // 서버 응답이 없는 경우

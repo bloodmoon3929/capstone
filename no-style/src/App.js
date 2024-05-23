@@ -1,8 +1,8 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import LoginContainer from './containers/Auth/LoginContainer';
-import { Route, Routes, useLocation, useNavigate } from 'react-router';
+import { Route, Routes} from 'react-router';
 import NotFound from './containers/NotFound';
 
 import WelcomeContainer from './containers/WelcomContainer';
@@ -10,18 +10,12 @@ import LayOutContainer from './containers/LayOutContainer';
 import SetTimeTableContainer from './containers/setTimeTable/SetTimeTableContainer';
 import LessonDetailContainer from './containers/setTimeTable/LessonDetailContainer';
 import SigninContainer from './containers/Auth/SigninContainer';
-import { authService } from './fbInstance';
-import { useDispatch, useSelector } from 'react-redux';
-import useAuthStateChanged from './modules/useAuthStateChanged';
 import ArrangeMeetingContainer from './containers/arrangeMeeting/ArranageMeetingContainer';
-import Sample from './Sample';
-import { finishLoading, startLoading } from './modules/loading';
-import axios from 'axios';
 import PrivateRoute from './containers/Auth/PrivateRoute';
+import ArrangeMeetingSchedule from './components/ArrangeMeeting/ArrangeMeetingSchedule';
+import UserListContainer from './containers/arrangeMeeting/UserListContainer';
 
 function App() {
-  const navigator = useNavigate();
-  const dispatch = useDispatch();
 
   
   return (
@@ -40,7 +34,7 @@ function App() {
               </Route>
             </Route>
             <Route path='/arrangeMeeting' element={<PrivateRoute />}>
-              <Route index element={<ArrangeMeetingContainer />} />
+                <Route index element={<ArrangeMeetingContainer></ArrangeMeetingContainer>}></Route>
             </Route>
             <Route path="*" element={<NotFound />} />
           </Route>

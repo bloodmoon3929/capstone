@@ -77,6 +77,7 @@ const login = handleActions({
    [LOGIN]: (state, action) => ({
       ...state
    }),
+
    [LOGIN_SUCCESS]: (state, {payload: user}) => ({
       email: user.email,
       uid: user.uid,

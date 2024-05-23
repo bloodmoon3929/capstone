@@ -6306,6 +6306,11 @@ es-get-iterator@^1.1.3:
     isarray "^2.0.5"
     stop-iteration-iterator "^1.0.0"
 
+es-hangul@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/es-hangul/-/es-hangul-1.3.5.tgz#38b8ca3d7138f5eba9adcceaf76d973aa7125357"
+  integrity sha512-OVk/2BzniG5Hfjw0Fie1WPFgcqvNPk30F63dldVf3QGw1ee48jzckAs/rvUr/r1Y0xra22DaetnHL8osBnFiUQ==
+
 es-iterator-helpers@^1.0.15, es-iterator-helpers@^1.0.17:
   version "1.0.18"
   resolved "https://registry.yarnpkg.com/es-iterator-helpers/-/es-iterator-helpers-1.0.18.tgz#4d3424f46b24df38d064af6fbbc89274e29ea69d"
