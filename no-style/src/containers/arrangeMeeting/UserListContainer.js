@@ -19,8 +19,10 @@ const UserListContainer = ({users}) => {
       /// 수정 1 현재 사용자의 강의 정보들을 모두 읽어낸 후 store.user의 user에 저장함
       console.log('initializing current user\'s timetable');
       (async function() {
-         const docRef = doc(db, 'user', localStorage.getItem("uid"));
+         const docRef = doc(db, 'user', localStorage.getItem("user").uid);
+         console.log(docRef);
          const docSnap = await getDoc(docRef);
+         console.log(docSnap.data().table);
          await dispatch(initUser(docSnap.data().table));
       })();
 
