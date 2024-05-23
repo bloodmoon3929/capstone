@@ -34,24 +34,24 @@ const UserListContainer = ({users}) => {
    //    }
    //  }, []);
 
-      const listdata = async ()=>{
-         try
-         {
-            const response = await axios.post(
-               'http://localhost:3001/arrageMeeting',{uid}
-            );
-            console.log(response.data);
-            await dispatch(ArrangeMeetingSchedule(response.data))
-         }
-         catch(e)
-         {
-            console.log(e);
-         }
+   //    const listdata = async ()=>{
+   //       try
+   //       {
+   //          const response = await axios.post(
+   //             'http://localhost:3001/arrageMeeting',{uid}
+   //          );
+   //          console.log(response.data);
+   //          await dispatch(ArrangeMeetingSchedule(response.data))
+   //       }
+   //       catch(e)
+   //       {
+   //          console.log(e);
+   //       }
 
-      }
+   //    }
 
-      listdata();
-    }, []);
+   //    listdata();
+   //  }, []);
 
    return (
       <UserList users={users} add={add}></UserList>
