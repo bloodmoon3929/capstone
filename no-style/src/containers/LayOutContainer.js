@@ -1,14 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import Layout from "../components/Layout";
 import { useLocation, useNavigate } from "react-router";
-import { startLogout } from "../modules/login";
-import {clearSelect, deleteLesson, initLesson, saveLesson} from '../modules/lesson'
-import { useCallback, useEffect } from "react";
-import { authService, db } from "../fbInstance";
-import useAuthStateChanged from "../modules/useAuthStateChanged";
-import { doc, getDoc } from "firebase/firestore";
-import { finishLoading, startLoading } from "../modules/loading";
-import axios from "axios";
+import { deleteLesson, saveLesson} from '../modules/lesson'
+import { useCallback } from "react";
+
 const LayOutContainer = () => {
    const dispatch = useDispatch();
    const {lessons} = useSelector((state) => state.lessons);
@@ -19,7 +14,7 @@ const LayOutContainer = () => {
    const onLogout = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      navigator('/login');
+      navigator('/loginRefine');
    }
    
    const onGoback = useCallback(() => {
@@ -38,13 +33,13 @@ const LayOutContainer = () => {
       navigator('/');
    }, [])
 
-   const { email } = useSelector((state) => state.login);
+   const { uid: displayName } = useSelector((state) => state.login);
    
 
    return (
       <Layout lessons={lessons} 
       currentLocation={currentLocation.pathname.replace(/\/\d+/g, '')} 
-      email={email} 
+      displayName={displayName} 
       onGoback={onGoback} 
       onLogout={onLogout}
       deleteLesson={deleteLesson}

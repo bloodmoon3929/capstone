@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate, Outlet, useNavigate, useSearchParams } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { finishLoading, startLoading } from '../../modules/loading';
 import { usereffect } from '../../modules/login';
-import {jwtDecode} from 'jwt-decode';
+
 
 
 const PrivateRoute = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loading = useSelector((state) => state.loading.login);
@@ -16,7 +15,7 @@ const PrivateRoute = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if(token === null) {
-      navigate('/login');
+      navigate('/loginRefine');
     }
     console.log('check auth');
 
@@ -25,7 +24,7 @@ const PrivateRoute = () => {
 
       if (!token) {
         dispatch(finishLoading('auth-check'));
-        navigate('/login');
+        navigate('/loginRefine');
         return;
       }
 
@@ -43,15 +42,17 @@ const PrivateRoute = () => {
             }));
         } else {
           dispatch(finishLoading('auth-check'));
-          navigate('/login');
+          navigate('/loginRefine');
           return;
         }
 
       } catch (error) {
-        console.error('Authentication check failed', error);
-        setIsAuthenticated(false);
-      } finally {
+        console.log('Authentication check failed', error);
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
         dispatch(finishLoading('auth-check'));
+        navigate('/loginRefine');
+        return;
       }
     };
 

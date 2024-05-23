@@ -1,11 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { put, takeLatest } from "redux-saga/effects";
 import { finishLoading, startLoading } from "./loading";
-import { authService } from "../fbInstance";
 import {jwtDecode} from 'jwt-decode'
-import { signInWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios';
-import { useState } from "react";
 
 const LOGIN = 'login/LOGIN';
 const LOGIN_SUCCESS = '/login/SUCCESS';
@@ -32,6 +29,7 @@ function* loginSaga(action) {
       const response = yield axios.post('http://localhost:3001/login', body);
 
       const { token } = response.data;      
+      console.log(token);
       const decodedToken = jwtDecode(token);
 
       localStorage.setItem('token', token);
@@ -49,6 +47,7 @@ function* loginSaga(action) {
 
       //db에서 이메일이랑 uid를 얻어서 
    } catch(e) {
+      alert('존재하지 않는 아이디이거나 비밀번호가 틀렸습니다')
       yield put({
          type: LOGIN_FAILURE,
          payload: e

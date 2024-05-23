@@ -1,9 +1,6 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useCallback } from 'react';
 import { useState } from 'react';
-import { authService, db } from '../../fbInstance';
 import { useNavigate } from 'react-router';
-import { collection, doc, setDoc } from 'firebase/firestore';
 import Signin from '../../components/Auth/Signin';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';

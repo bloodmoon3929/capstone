@@ -1,8 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { finishLoading, startLoading } from './loading';
 import { takeLatest, put, select } from 'redux-saga/effects';
-import { collection, doc, setDoc } from 'firebase/firestore';
-import { db } from '../fbInstance';
 
 import axios from 'axios';
 
@@ -81,21 +79,10 @@ function* saveSaga(action) {
 
    
    try {
-      ///수정 2(디비에 사용자의 강의목록을 저장하는 부분)
-      // const userDocRef = yield doc(collection(db, 'user'), uid);
-      // setDoc(userDocRef, {
-      //    table: lessons
-      // }, { merge: true });
-      // yield axios.post('/lesson/saveSelectedLessons', ...);
-      //////
-
       const response = yield axios.post('http://localhost:3001/api/save', {
          lessons,
          uid
       })
-
-
-
 
       yield put({
          type: SAVE_LESSON_SUCCESS,

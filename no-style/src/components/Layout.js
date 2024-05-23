@@ -18,7 +18,7 @@ const LayoutBlock = styled.div`
    width: 30vw;
    height: 100%;
    padding: 10px;
-   margin: 0 auto;
+   margin: 0 1rem;
    border-radius: 5px;
    box-shadow: 0px 40px 30px -20px rgba(0, 0, 0, 0.3);
    text-align: center;
@@ -72,10 +72,10 @@ const LayoutBlock = styled.div`
 const LayoutBlock2 = styled.div`
    /* border: 1px solid black; */
    background-color: white;
-   width: 30vw;
+   width: 45vw;
    height: 100%;
    padding: 10px;
-   margin: 0 auto;
+   margin: 0 1rem;
    border-radius: 5px;
    box-shadow: 0px 40px 30px -20px rgba(0, 0, 0, 0.3);
    text-align: center;
@@ -92,7 +92,7 @@ const LayoutBlock2 = styled.div`
 
 `
 
-const Layout = ({onGoback, onLogout, email, currentLocation,
+const Layout = ({onGoback, onLogout, displayName, currentLocation,
    onDelete,
    lessons,
    onSave,
@@ -107,12 +107,12 @@ const Layout = ({onGoback, onLogout, email, currentLocation,
                <IoHomeOutline className="home" onClick={onGoHome} />
                <RiLogoutBoxRLine className="logout" onClick={onLogout}/>
             </div>
-            <h3 style={
+            <p style={
                {
                   margin: 0,
-                  padding: 0
+                  padding: 0,
                }
-            }>{email}</h3>
+            }>{displayName}</p>
             <Outlet></Outlet>
          </LayoutBlock>
          <>

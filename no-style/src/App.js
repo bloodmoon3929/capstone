@@ -1,10 +1,8 @@
 import './App.css';
 import React from 'react';
-
 import LoginContainer from './containers/Auth/LoginContainer';
 import { Route, Routes} from 'react-router';
 import NotFound from './containers/NotFound';
-
 import WelcomeContainer from './containers/WelcomContainer';
 import LayOutContainer from './containers/LayOutContainer';
 import SetTimeTableContainer from './containers/setTimeTable/SetTimeTableContainer';
@@ -12,8 +10,8 @@ import LessonDetailContainer from './containers/setTimeTable/LessonDetailContain
 import SigninContainer from './containers/Auth/SigninContainer';
 import ArrangeMeetingContainer from './containers/arrangeMeeting/ArranageMeetingContainer';
 import PrivateRoute from './containers/Auth/PrivateRoute';
-import ArrangeMeetingSchedule from './components/ArrangeMeeting/ArrangeMeetingSchedule';
-import UserListContainer from './containers/arrangeMeeting/UserListContainer';
+import LoginRef from './components/Auth/LoginRef';
+
 
 function App() {
 
@@ -21,6 +19,7 @@ function App() {
   return (
     <>
         <Routes>
+          <Route path='/loginRefine' element={<LoginRef></LoginRef>}></Route>
           <Route path='/login' element={<LoginContainer />} />
           <Route path='/signIn' element={<SigninContainer />} />
           <Route path='/' element={<LayOutContainer />}>

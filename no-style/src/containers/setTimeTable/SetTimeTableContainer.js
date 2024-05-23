@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { where, getDocs, collection, query, doc, getDoc } from "firebase/firestore";
-import { authService, db } from "../../fbInstance";
-import { Outlet, useNavigate } from "react-router";
+import { where, getDocs, query } from "firebase/firestore";
+
+import { Outlet } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSelect, initLesson, selectLesson } from "../../modules/lesson";
+import { initLesson, selectLesson } from "../../modules/lesson";
 import SetTimeTable from "../../components/setTimeTable/SetTimeTable";
 import LessonList from "../../components/setTimeTable/LessonList";
 import axios from 'axios';
-import useAuthStateChanged from "../../modules/useAuthStateChanged";
+
 
 
 
 const SetTimeTableContainer = () => {
    const {select} = useSelector(state => state.lessons);
-   const {uid} = useSelector(state => state.login);
+
 
    const [value, setValue] = useState('');
    const [type, setType] = useState('subject');
@@ -69,19 +69,6 @@ const SetTimeTableContainer = () => {
       setType(checkThis.target.value);
     }, [type]);
 
-   
-    ///초기 사용자 강의정보 렌더링 할 때
-   // useEffect(() => {
-   //    (async function() {
-   //       const docRef = doc(db, 'user', localStorage.getItem("uid"));
-   //       const docSnap = await getDoc(docRef);
-   //       await dispatch(initLesson(docSnap.data().table));
-   //    })();
-   
-   //    return () => {
-   //       dispatch(clearSelect());
-   //    }
-   // }, []);
 
    useEffect(() => {
       const {uid} = JSON.parse(localStorage.getItem('user'));

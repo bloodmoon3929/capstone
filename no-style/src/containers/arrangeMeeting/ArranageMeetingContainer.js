@@ -1,17 +1,9 @@
 import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
-import { db } from '../../fbInstance';
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
-import { useDispatch } from 'react-redux';
-import { initLesson } from '../../modules/lesson';
-import UserListContainer from './UserListContainer';
-import { Outlet } from 'react-router';
 import ArrangeMeeting from '../../components/ArrangeMeeting/ArrangeMeeting';
 import axios from 'axios';
 
 
 const ArrangeMeetingContainer = () => {
-   const dispatch = useDispatch();
    const [name, setName] = useState('');
    const [users, setUsers] = useState([]); ///검색한 유저들의 정보가 저장되는 부분
     console.log('enter arrange meeting page');
@@ -44,14 +36,6 @@ const ArrangeMeetingContainer = () => {
       called();
   }, [name]);
 
-//   async function getQuerySnapshot(q) {
-//       const querySnapshot = await getDocs(query(
-//           q,
-//           where('displayName', '>=', name),
-//           where('displayName', '<=', name + '\uf8ff')
-//       ));
-//       return querySnapshot;
-//   }
 
    return (
       <ArrangeMeeting onChange={onChange} name={name}
