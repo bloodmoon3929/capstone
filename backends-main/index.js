@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'FDSF412QWE32';
 
 
+
 const db = require("./config/mysql.js");
 
 const app = express();
@@ -93,9 +94,8 @@ app.post('/api/save', function(req, res) {
   console.log(jLessons);
   const query=`UPDATE user SET data = ? WHERE uid = ?`;
   conn.query(query,[jLessons, uid],(err, rows, fields)=>{
-    console.log(rows.changedRows);
     let status;
-      if(rows.changedRows > 0) {
+      if(rows.length > 0) {
         status = 200;
       } else {
         status = 401;
@@ -118,9 +118,8 @@ app.post('/api/init_lesson', function(req, res) {
   const {uid} = req.body;
   const query=`SELECT data FROM user WHERE uid = ?`;
   conn.query(query,[uid],(err, rows, fields)=>{
-    console.log(rows[0].data);
     let status;
-    if(rows.length > 0 && rows[0].data != null) {
+    if(rows.length > 0) {
       status = 200;
     } else {
       status = 401;

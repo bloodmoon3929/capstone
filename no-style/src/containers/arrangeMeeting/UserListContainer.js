@@ -22,6 +22,7 @@ const UserListContainer = ({users}) => {
       const {uid} = JSON.parse(localStorage.getItem('uid'));
       console.log(uid);
       console.log('initializing current user\'s timetable');
+
       const listdata = async ()=>{
          try
          {
@@ -35,6 +36,7 @@ const UserListContainer = ({users}) => {
          {
             console.log(e);
          }
+
       }
 
       listdata();

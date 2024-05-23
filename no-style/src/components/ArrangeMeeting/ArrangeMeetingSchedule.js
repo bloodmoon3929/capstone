@@ -77,7 +77,6 @@ const theme = {
 
 // Timetable 컴포넌트를 정의합니다.
 const ArrangeMeetingSchedule = () => {
-   const dispatch = useDispatch();
    
    const {users} = useSelector((state) => state.users);
    console.log(users);

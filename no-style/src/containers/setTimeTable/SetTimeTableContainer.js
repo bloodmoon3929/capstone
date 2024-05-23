@@ -26,6 +26,7 @@ const SetTimeTableContainer = () => {
    const onSearch = useCallback(async (e) => {
       e.preventDefault();
 
+
       try {
          /// 수정해야하는 부분 1
          const response = await axios.post('http://localhost:3001/lesson/getSearchedLessons', {
