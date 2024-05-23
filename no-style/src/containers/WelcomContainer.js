@@ -14,7 +14,7 @@ const WelcomeContainer = () => {
    }, []);
 
    const onGotoArrangeMeeting = useCallback(() => {
-      navigator('/arrageMeeting')
+      navigator('/arrangeMeeting')
    }, []);
 
    // useAuthStateChanged(authService, navigator, dispatch);

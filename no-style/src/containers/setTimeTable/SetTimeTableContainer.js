@@ -26,6 +26,7 @@ const SetTimeTableContainer = () => {
    const onSearch = useCallback(async (e) => {
       e.preventDefault();
 
+
       try {
          /// 수정해야하는 부분 1
          const response = await axios.post('http://localhost:3001/lesson/getSearchedLessons', {
@@ -81,6 +82,22 @@ const SetTimeTableContainer = () => {
    //       dispatch(clearSelect());
    //    }
    // }, []);
+
+   useEffect(() => {
+      const {uid} = JSON.parse(localStorage.getItem('user'));
+      console.log(uid);
+      const initData = async () => {
+         try {
+            const response = await axios.post('http://localhost:3001/api/init_lesson', {uid});
+            console.log(response.data);
+            await dispatch(initLesson(response.data));
+         } catch(e) {
+            console.log(e);
+         }
+      }
+
+      initData();
+   }, []);
 
    return (
       <div>

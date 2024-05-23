@@ -136,7 +136,7 @@ const Layout = ({onGoback, onLogout, email, currentLocation,
          </>
 
          {
-            currentLocation === '/arrageMeeting' ? (
+            currentLocation === '/arrangeMeeting' ? (
                <>
                   <LayoutBlock2 className="timetable">
                      <ArrangeMeetingSchedule></ArrangeMeetingSchedule>

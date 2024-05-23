@@ -4,6 +4,8 @@ import { takeLatest, put, select } from 'redux-saga/effects';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { db } from '../fbInstance';
 
+import axios from 'axios';
+
 const INSERT_LESSON = 'lesson/INSERT_LESSON';
 const INSERT_LESSON_SUCCESS = 'lesson/INSERT_LESSON_SUCCESS';
 const INSERT_LESSON_FAILURE = 'lesson/INSERT_LESSON_FAILURE';
@@ -74,7 +76,9 @@ function* deleteSaga(action) {
 function* saveSaga(action) {
    yield put(startLoading('lesson'));
    const lessons = yield select(state => state.lessons.lessons);
+   console.log(lessons);
    const uid = yield select(state => state.login.uid);
+
    
    try {
       ///수정 2(디비에 사용자의 강의목록을 저장하는 부분)
@@ -84,6 +88,15 @@ function* saveSaga(action) {
       // }, { merge: true });
       // yield axios.post('/lesson/saveSelectedLessons', ...);
       //////
+
+      const response = yield axios.post('http://localhost:3001/api/save', {
+         lessons,
+         uid
+      })
+
+
+
+
       yield put({
          type: SAVE_LESSON_SUCCESS,
       })

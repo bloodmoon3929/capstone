@@ -15,6 +15,9 @@ const PrivateRoute = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    if(token === null) {
+      navigate('/login');
+    }
     console.log('check auth');
 
     const checkAuth = async () => {
@@ -39,7 +42,9 @@ const PrivateRoute = () => {
                uid: restoken.uid
             }));
         } else {
-          setIsAuthenticated(false);
+          dispatch(finishLoading('auth-check'));
+          navigate('/login');
+          return;
         }
 
       } catch (error) {

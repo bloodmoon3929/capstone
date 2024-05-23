@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'FDSF412QWE32';
 
 
-// 토큰 테스트를 위해 주석처리
+
 const db = require("./config/mysql.js");
 
 const app = express();
@@ -25,18 +25,6 @@ app.set("host", process.env.HOST || "0.0.0.0");
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-
-// 일반적으로 클라이언트에 보낸 요청에 대한 응답이 정상적인 경우
-// 여기서는 로그인이 완료된 경우 백엔드에서 클라이언트로 보내는 코드
-// status 200번
-
-// 클라이언트에서 보낸 요청의 일부는 존재하고 일부가 존재하지 않는 경우
-// 여기에서는 클라이언트의 이메일 은 맞고 패스워드가 틀린겨우 
-// status 401번
-
-// 이메일조차 데이터베이스에 존재하지 않는 경우
-// 404 -> 401로 숨길 수 있음
 
 
 app.post('/login', function(req, res) {
@@ -97,8 +85,61 @@ app.post('/lesson/getSearchedLessons', function(req, res) {
   })
 });
 
-app.get('/lesson/saveSelectedLessons', function(req, res) {
 
+app.post('/api/save', function(req, res) {
+  console.log('/savelesson')
+  const {lessons, uid} =req.body;
+  console.log(lessons);
+  const jLessons = JSON.stringify(lessons);
+  console.log(jLessons);
+  const query=`UPDATE user SET data = ? WHERE uid = ?`;
+  conn.query(query,[jLessons, uid],(err, rows, fields)=>{
+    let status;
+      if(rows.length > 0) {
+        status = 200;
+      } else {
+        status = 401;
+      }
+
+      if(err) {
+        console.log("error in update data");
+        throw err;
+       }
+       if(status == 200) {
+        res.status(status).send(rows);
+       } else {
+        res.status(status).send();
+       }
+  })
+});
+
+app.post('/api/init_lesson', function(req, res) {
+  console.log('/initlesson')
+  const {uid} = req.body;
+  const query=`SELECT data FROM user WHERE uid = ?`;
+  conn.query(query,[uid],(err, rows, fields)=>{
+    let status;
+    if(rows.length > 0) {
+      status = 200;
+    } else {
+      status = 401;
+    }
+
+
+    if(err) {
+      console.log("error in init");
+      throw err;
+
+     }
+     if(status == 200) {
+      res.status(status).send(rows[0].data);
+      return;
+     } else {
+      res.status(status).send();
+      return;
+     }
+
+  })
 });
 
 app.get('/api/auth-check', (req, res) => {
@@ -133,7 +174,7 @@ app.post('/signup', function(req, res){
   conn.query(query,[email],(e,result,field)=>{
     if(result.length>0)//email이 중복될 때
     {
-      res.status(401);
+      res.status(401).send({ message: 'Email already exists' });
     }
     else//중복이 없을때
     {
@@ -142,16 +183,48 @@ app.post('/signup', function(req, res){
 
       conn.query(query2,[email, password, uid],(err,resu)=>{
         if(err) {
+          console.error("Error while inserting data", err);
           res.status(500).send("Error while inserting data");
           return;
         }
-        res.status(200);
+        const token = jwt.sign({ email, uid }, SECRET_KEY, { expiresIn: '1h' });
+        res.status(200).json({ token });
       });
     }
 
   })
 
   
+})
+
+app.post('/arrageMeeting',function(req,res){
+  console.log('test')
+  const{uid}=req.body;
+
+  const query='SELECT data from user where uid=?';
+  conn.query(query,[uid],(err, result, field)=>{
+    let status;
+    if(result.length > 0) {
+      status = 200;
+    } else {
+      status = 401;
+    }
+
+
+    if(err) {
+      console.log("error in list");
+      throw err;
+
+     }
+     if(status == 200) {
+      res.status(status).send(result.data);
+      return;
+     } else {
+      res.status(status).send();
+      return;
+     }
+
+  })
 })
 
 
