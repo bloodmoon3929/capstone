@@ -228,6 +228,38 @@ app.post('/api/initUser',function(req,res){
   })
 })
 
+app.post('/api/userlist',function(req,res){
+  console.log('initialization of user data');
+  const{name}=(req.body);
+  console.log(name);
+
+  const query=`SELECT uid, data from user where uid like '%?%'`;
+  conn.query(query,[parseInt(name)],(err, result, field)=>{
+    let status;
+    console.log(result);
+    if(result.length > 0) {
+      status = 200;
+    } else {
+      status = 401;
+    }
+
+
+    if(err) {
+      console.log("error in list");
+      throw err;
+
+     }
+     if(status == 200) {
+      res.status(status).send(result);
+      return;
+     } else {
+      res.status(status).send();
+      return;
+     }
+
+  })
+})
+
 
 // // 게시글 목록 보기
 // app.get("/view", function (req, res) {
