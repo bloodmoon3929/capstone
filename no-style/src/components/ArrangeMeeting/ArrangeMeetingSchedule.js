@@ -2,20 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { stringToColorHash } from '../../modules/color';
-import { doc, getDoc } from 'firebase/firestore';
-import { clearSelect, initLesson } from '../../modules/lesson';
-import { db } from '../../fbInstance';
-import { addUser } from '../../modules/users';
+
 
 // styled-components로 스타일을 정의합니다.
 const TimetableWrapper = styled.div`
   display: grid;
   grid-template-areas: ". week"
                        "time content";
-  grid-template-columns: 60qpx;
+  grid-template-columns: 60px;
   grid-template-rows: 30px;
-  /* width: 30vw;
-  height: 70vh; */
+
   width: 100%;
   height: 100%;
 `;
@@ -63,7 +59,6 @@ const Content = styled.div`
   }
   p {
    color: white;
-   background: rgba(0,0,0, 0.2);
    font-size: 1.6vmin;
    font-weight: 700;
   }
@@ -234,12 +229,16 @@ const ArrangeMeetingSchedule = () => {
                      display: 'flex',
                      alignItems: 'center',
                      justifyContent: 'center',
-                     background: e ? `linear-gradient(10deg, ${stringToColorHash(e.subject)}, white)` : 'white',
-                     // background: e ? stringToColorHash(e.subject) : 'white',
+                     // background: e ? `linear-gradient(10deg, ${stringToColorHash(e.subject)}, white)` : 'white',
+                     // // background: e ? stringToColorHash(e.subject) : 'white',
+                     background : e ? `${stringToColorHash(e.subject)}99` : 'white',
                      opacity: 0.9,
                   }
                }
-               key={index1 + index2}><p>{e ? e.subject : ''}</p></div>     
+               key={index1 + index2}><p style={{
+                  margin: 0,
+                  padding: 0,
+               }}>{e ? e.subject : ''}</p></div>     
             ))
          ))
        }

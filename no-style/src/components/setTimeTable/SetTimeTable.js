@@ -13,15 +13,22 @@ const SetTimeTableBlock = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    p {
+      margin: 0;
+      padding: 0;
+      border: solid 1px black;
+      width: 10vw;
+    }
   }
 `
 
 const CheckboxWrapper = styled.div`
    /* border: 1px solid black; */
-   width: 50%;
    display: flex;
+   flex-direction: row;
+   width: 50%;
    align-items: center;
-   margin-top: 10px;
+
 `
 
 const InputWrapper = styled.div`
@@ -70,8 +77,8 @@ const SetTimeTable = ({onChange, onCheckOnlyOne, onSearch,
             </InputWrapper>
             
             <CheckboxWrapper>
-               <input type="checkbox" name="filter" value="subject" onChange={onCheckOnlyOne} /> 과목명
-               <input type="checkbox" name="filter" value="professor" onChange={onCheckOnlyOne} /> 교수명
+               <input type="checkbox" name="filter" value="subject" onChange={onCheckOnlyOne} /> <p> 과목명</p>
+               <input type="checkbox" name="filter" value="professor" onChange={onCheckOnlyOne} /> <p> 교수명</p>
             </CheckboxWrapper>
           
          </form>

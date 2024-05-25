@@ -20,8 +20,8 @@ const InputWrapper = styled.div`
    align-items: center;
    width: 30vh;
    .keyword_search {
-      border-radius: 5px;
-      background: none;
+      border-radius: 1px;
+      background: #eee;
       padding: 10px;
       font-weight: 700; 
       transition: .2s;

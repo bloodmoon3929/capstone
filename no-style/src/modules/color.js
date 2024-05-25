@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import CryptoJS from 'crypto-js';
 
 // 문자열을 랜덤 색상 코드로 변환하는 함수
