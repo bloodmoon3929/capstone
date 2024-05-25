@@ -64,9 +64,6 @@
   "directories": {
     "lib": "lib"
   },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.15.0"
-  },
   "author": "",
   "license": "ISC"
 }
