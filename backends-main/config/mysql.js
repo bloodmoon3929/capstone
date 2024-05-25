@@ -9,11 +9,18 @@ var db_info = {
     // port: 43306
 
     // 연구실 세팅값
-    host: "203.234.48.124",
+    // host: "203.234.48.124",
+    // user: "tester",
+    // password: "1234",
+    // database: "test",
+    // port: 43306
+
+    // mariadb
+    host: "svc.sel5.cloudtype.app",
     user: "tester",
     password: "1234",
     database: "test",
-    port: 43306
+    port: 30235
 };
 
 module.exports = {
