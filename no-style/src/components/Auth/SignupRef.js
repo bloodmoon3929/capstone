@@ -52,7 +52,7 @@ const SignUpForm = () => {
       };
 
       try {
-         const res = await axios.post('http://localhost:3001/signup', body);
+         const res = await axios.post('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/signup', body);
 
          if (res.status === 200) { /// 정상적으로 회원가입이 진행된 경우
             const { token } = res.data;

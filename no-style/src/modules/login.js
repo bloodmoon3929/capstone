@@ -26,7 +26,7 @@ function* loginSaga(action) {
    try {
       const body = action.payload;
       // const response = yield signInWithEmailAndPassword(authService, email, password);
-      const response = yield axios.post('http://localhost:3001/login', body);
+      const response = yield axios.post('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/login', body);
 
       const { token } = response.data;      
       console.log(token);

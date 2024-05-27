@@ -29,7 +29,7 @@ const SetTimeTableContainer = () => {
 
       try {
          /// 수정해야하는 부분 1
-         const response = await axios.post('http://localhost:3001/lesson/getSearchedLessons', {
+         const response = await axios.post('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/lesson/getSearchedLessons', {
             keyword: value,
             type
          })
@@ -75,7 +75,7 @@ const SetTimeTableContainer = () => {
       console.log(uid);
       const initData = async () => {
          try {
-            const response = await axios.post('http://localhost:3001/api/init_lesson', {uid});
+            const response = await axios.post('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/init_lesson', {uid});
             console.log(response.data);
             await dispatch(initLesson(response.data));
          } catch(e) {

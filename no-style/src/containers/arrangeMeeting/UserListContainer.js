@@ -21,7 +21,7 @@ const UserListContainer = ({users}) => {
             const { uid } = JSON.parse(localStorage.getItem("user"));
             console.log(`current uid : ${uid}`);
             const response = await axios.post(
-               'http://localhost:3001/api/initUser',{uid}
+               'https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/initUser',{uid}
             );
 
             await dispatch(initUser(response.data));

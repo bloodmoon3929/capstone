@@ -29,7 +29,7 @@ const PrivateRoute = () => {
       }
 
       try {
-        const response = await axios.get('http://localhost:3001/api/auth-check', {
+        const response = await axios.get('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/auth-check', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
