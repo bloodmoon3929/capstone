@@ -21,6 +21,7 @@ const ArrangeMeetingContainer = () => {
             const response = await axios.post(
                'https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/userlist',{name}
             );
+
             // 주어진 문자열
             const data = response.data.map((e, i) => {
                const table = e.data.replace(/\\"/g, '"');
@@ -32,13 +33,14 @@ const ArrangeMeetingContainer = () => {
             })
             
             const resData = data.map((e) => {
+
                return({
                   displayName: e.uid,
                   table : e.data
                })
             });
 
-            setUsers(resData)
+            // setUsers(resData)
         } catch (error) {
             console.error('Error while searching:', error);
         }
