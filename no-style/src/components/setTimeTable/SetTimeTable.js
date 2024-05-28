@@ -3,7 +3,7 @@ import { IoSearchSharp } from "react-icons/io5";
 
 
 const SetTimeTableBlock = styled.div`
-   width: 30vw;
+   width: 15rem;
    /* border: 1px solid black; */
 
    .form {
@@ -16,8 +16,8 @@ const SetTimeTableBlock = styled.div`
     p {
       margin: 0;
       padding: 0;
-      border: solid 1px black;
-      width: 10vw;
+      /* border: solid 1px black; */
+      width: 10rem;
     }
   }
 `
@@ -26,7 +26,7 @@ const CheckboxWrapper = styled.div`
    /* border: 1px solid black; */
    display: flex;
    flex-direction: row;
-   width: 50%;
+   width: 10rem;
    align-items: center;
 
 `
@@ -36,7 +36,7 @@ const InputWrapper = styled.div`
    display: flex;
    justify-content: space-evenly;
    align-items: center;
-   width: 60vh;
+   width: 10rem;
    .keyword_search {
       border: 1px solid rgb(68, 112, 67);;
       border-radius: 5px;
@@ -55,7 +55,7 @@ const InputWrapper = styled.div`
    }
 
    .search_btn {
-      font-size: 33px;
+      font-size: 2rem;
       transition: .2s;
       color: rgb(68, 112, 67);
 

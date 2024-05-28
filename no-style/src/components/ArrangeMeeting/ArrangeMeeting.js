@@ -3,7 +3,7 @@ import UserListContainer from "../../containers/arrangeMeeting/UserListContainer
 import { IoSearchSharp } from "react-icons/io5";
 
 const ArrangeMeetingBlock = styled.div`
-   width: 30vw;
+   width: 15rem;
    .form {
       display: flex;
       padding: 30px;
@@ -18,7 +18,7 @@ const InputWrapper = styled.div`
    display: flex;
    justify-content: space-evenly;
    align-items: center;
-   width: 30vh;
+   width: 10rem;
    .keyword_search {
       border-radius: 1px;
       background: #eee;

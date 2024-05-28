@@ -1,7 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import ArrangeMeeting from '../../components/ArrangeMeeting/ArrangeMeeting';
 import axios from 'axios';
+import styled from 'styled-components';
 
+const ArrangeMeetingBlock = styled.div`
+   margin-bottom: 10px;
+`
 
 const ArrangeMeetingContainer = () => {
    const [name, setName] = useState('');
@@ -51,8 +55,11 @@ const ArrangeMeetingContainer = () => {
 
 
    return (
-      <ArrangeMeeting onChange={onChange} name={name}
+      <ArrangeMeetingBlock>
+         <ArrangeMeeting onChange={onChange} name={name}
       users={users} onClick={onClick}></ArrangeMeeting>
+      </ArrangeMeetingBlock>
+      
    )
 }
 
