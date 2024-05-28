@@ -23,23 +23,23 @@ const ArrangeMeetingContainer = () => {
             );
             console.log(response.data);
             
-            const refineResponse = response.data.map((e) => {
-               e.data = e.data.replace(/\\\"/g, '"');
-               console.log(e.data);
-               return({
-                  displayName: e.uid,
-                  table : `${e.data}`
-               })
-            });
+            // const refineResponse = response.data.map((e) => {
+            //    e.data = e.data.replace(/\\\"/g, '"');
+            //    console.log(e.data);
+            //    return({
+            //       displayName: e.uid,
+            //       table : `${e.data}`
+            //    })
+            // });
             
             console.log(refineResponse);
 
-            // const resData = response.data.map((e) => {
-            //    return({
-            //       displayName: e.uid,
-            //       table : e.data
-            //    })
-            // });
+            const resData = response.data.map((e) => {
+               return({
+                  displayName: e.uid,
+                  table : e.data
+               })
+            });
 
             // setUsers(resData)
         } catch (error) {
