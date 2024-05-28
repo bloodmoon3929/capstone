@@ -21,20 +21,19 @@ const ArrangeMeetingContainer = () => {
             const response = await axios.post(
                'https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/userlist',{name}
             );
-            console.log(response.data);
-            
-            // const refineResponse = response.data.map((e) => {
-            //    e.data = e.data.replace(/\\\"/g, '"');
-            //    console.log(e.data);
-            //    return({
-            //       displayName: e.uid,
-            //       table : `${e.data}`
-            //    })
-            // });
-            
-            console.log(refineResponse);
 
-            const resData = response.data.map((e) => {
+            // 주어진 문자열
+            const data = response.data.map((e, i) => {
+               const table = e.data.replace(/\\"/g, '"');
+               const ptable = JSON.parse(table);
+               return {
+                  ...e,
+                  data : ptable
+               }
+            })
+            
+            const resData = data.map((e) => {
+
                return({
                   displayName: e.uid,
                   table : e.data
