@@ -41,7 +41,7 @@ const ArrangeMeetingContainer = () => {
                })
             });
 
-            // setUsers(resData)
+            setUsers(resData)
         } catch (error) {
             console.error('Error while searching:', error);
         }
