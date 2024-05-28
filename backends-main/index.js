@@ -92,7 +92,7 @@ app.post('/api/save', function(req, res) {
   console.log(lessons);
   const jLessons = JSON.stringify(lessons);
   console.log(jLessons);
-  const query=`UPDATE user SET data = ? WHERE uid = ? AND JSON_VALID(data)`;
+  const query=`UPDATE user SET data = ? WHERE uid = ?`;
   conn.query(query,[jLessons, uid],(err, rows, fields)=>{
     let status;
       if(rows.length > 0) {
@@ -116,7 +116,7 @@ app.post('/api/save', function(req, res) {
 app.post('/api/init_lesson', function(req, res) {
   console.log('/initlesson')
   const {uid} = req.body;
-  const query=`SELECT data FROM user WHERE uid = ? AND JSON_VALID(data)`;
+  const query=`SELECT data FROM user WHERE uid = ?`;
   conn.query(query,[uid],(err, rows, fields)=>{
     let status;
     if(rows.length > 0) {
@@ -202,7 +202,7 @@ app.post('/api/initUser',function(req,res){
   const{uid}=req.body;
   console.log(uid);
 
-  const query='SELECT data from user where uid=? AND JSON_VALID(data)';
+  const query='SELECT data from user where uid=?';
   conn.query(query,[uid],(err, result, field)=>{
     let status;
     if(result[0].data.length > 0) {
@@ -233,7 +233,7 @@ app.post('/api/userlist',function(req,res){
   const{name}=(req.body);
   console.log(name);
 
-  const query=`SELECT uid, JSON_OBJECT(data) from user where uid like '%?%' AND JSON_VALID(data)`;
+  const query=`SELECT uid, data from user where uid like '%?%' AND JSON_VALID(data)`;
   conn.query(query,[parseInt(name)],(err, result, field)=>{
     let status;
     console.log(result);
