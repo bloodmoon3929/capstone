@@ -24,6 +24,7 @@ const UserListContainer = ({users}) => {
                'https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/initUser',{uid}
             );
 
+
             await dispatch(initUser(response.data));
          }
          catch(e)

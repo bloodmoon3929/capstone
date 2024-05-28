@@ -21,14 +21,27 @@ const ArrangeMeetingContainer = () => {
             const response = await axios.post(
                'https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/userlist',{name}
             );
-            const resData = response.data.map((e) => {
+            console.log(response.data);
+            
+            const refineResponse = response.data.map((e) => {
+               e.data = e.data.replace(/\\\"/g, '"');
+               console.log(e.data);
                return({
                   displayName: e.uid,
-                  table : e.data
+                  table : `${e.data}`
                })
             });
+            
+            console.log(refineResponse);
 
-            setUsers(resData)
+            // const resData = response.data.map((e) => {
+            //    return({
+            //       displayName: e.uid,
+            //       table : e.data
+            //    })
+            // });
+
+            // setUsers(resData)
         } catch (error) {
             console.error('Error while searching:', error);
         }

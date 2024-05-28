@@ -101,6 +101,7 @@ const ArrangeMeetingSchedule = () => {
          [...Array(5)],
          [...Array(5)],
       ]
+      console.log(users);
       users.forEach((e) => {
          const ret = (e.time).match(regex) || [];
          const subject = e.subject;
