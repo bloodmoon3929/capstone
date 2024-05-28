@@ -10,19 +10,19 @@ import ArrangeMeetingSchedule from "./ArrangeMeeting/ArrangeMeetingSchedule";
 
 const LayoutWrapper = styled.div`
    display: flex;
+   justify-content: center;
 `
 
 const LayoutBlock = styled.div`
    /* border: 1px solid black; */
    background-color: white;
-   width: 20vw;
+   width: ${props => props.size}vw;
    height: 100%;
    padding: 10px;
    margin: 0 1rem;
    border-radius: 5px;
    box-shadow: 0px 40px 30px -20px rgba(0, 0, 0, 0.3);
    text-align: center;
-
 
    display: flex;
    justify-content: center;
@@ -69,10 +69,23 @@ const LayoutBlock = styled.div`
    }
 `
 
-const LayoutBlock2 = styled.div`
+const page = {
+   welcome: 40,
+   setTimetable: {
+      search: 20,
+      cart : 20,
+      table: 40,
+   },
+   arrangeMeeting : {
+      search: 25,
+      table: 50,
+   }
+};
+
+const LayoutBlockCustome = styled.div`
    /* border: 1px solid black; */
    background-color: white;
-   width: 40vw;
+   width: ${(props) => props.size}vw;
    height: 100%;
    padding: 10px;
    margin: 0 1rem;
@@ -87,34 +100,11 @@ const LayoutBlock2 = styled.div`
    align-items: center;
 
    &.timetable {
-      height: 80vh;
+      height: 90vh;
    }
 
 `
 
-
-const LayoutBlock3 = styled.div`
-   /* border: 1px solid black; */
-   background-color: white;
-   width: 40vw;
-   height: 100%;
-   padding: 10px;
-   margin: 0 1rem;
-   border-radius: 5px;
-   box-shadow: 0px 40px 30px -20px rgba(0, 0, 0, 0.3);
-   text-align: center;
-
-
-   display: flex;
-   justify-content: center;
-   flex-direction: column;
-   align-items: center;
-
-   &.timetable {
-      height: 80vh;
-   }
-
-`
 
 const Layout = ({onGoback, onLogout, displayName, currentLocation,
    onDelete,
@@ -122,10 +112,18 @@ const Layout = ({onGoback, onLogout, displayName, currentLocation,
    onSave,
    onGoHome
 }) => {
+   let size;
+   if(currentLocation === '/setTimeTable') {
+      size = page['setTimetable'].search;
+   } else if(currentLocation === '/') {
+      size = page['welcome'];
+   } else if(currentLocation === '/arrangeMeeting') {
+      size = page['arrangeMeeting'].search;
+   }
    
    return(
       <LayoutWrapper>
-         <LayoutBlock>
+         <LayoutBlock size={size}>
             <div className="nav">
                <IoArrowBackOutline className="back" onClick={onGoback} />  
                <IoHomeOutline className="home" onClick={onGoHome} />
@@ -143,16 +141,16 @@ const Layout = ({onGoback, onLogout, displayName, currentLocation,
             {
                currentLocation === '/setTimeTable' ? 
                <>
-                  <LayoutBlock>
+                  <LayoutBlockCustome size={page['setTimetable'].cart}>
                      <CartList
                onDelete={onDelete}
                lessons={lessons}
                onSave={onSave}></CartList>
-                  </LayoutBlock>
+                  </LayoutBlockCustome>
                   
-                  <LayoutBlock3 className="timetable">
+                  <LayoutBlockCustome className="timetable" size={page['setTimetable'].table}>
                      <Schedule></Schedule>
-                  </LayoutBlock3>
+                  </LayoutBlockCustome>
                </>
                
                : null
@@ -162,9 +160,9 @@ const Layout = ({onGoback, onLogout, displayName, currentLocation,
          {
             currentLocation === '/arrangeMeeting' ? (
                <>
-                  <LayoutBlock2 className="timetable">
+                  <LayoutBlockCustome className="timetable" size={page['arrangeMeeting'].table}>
                      <ArrangeMeetingSchedule></ArrangeMeetingSchedule>
-                  </LayoutBlock2>
+                  </LayoutBlockCustome>
                </> 
             ) : null
 
