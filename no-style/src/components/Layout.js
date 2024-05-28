@@ -15,7 +15,7 @@ const LayoutWrapper = styled.div`
 const LayoutBlock = styled.div`
    /* border: 1px solid black; */
    background-color: white;
-   width: 30vw;
+   width: 20vw;
    height: 100%;
    padding: 10px;
    margin: 0 1rem;
@@ -72,7 +72,31 @@ const LayoutBlock = styled.div`
 const LayoutBlock2 = styled.div`
    /* border: 1px solid black; */
    background-color: white;
-   width: 45vw;
+   width: 40vw;
+   height: 100%;
+   padding: 10px;
+   margin: 0 1rem;
+   border-radius: 5px;
+   box-shadow: 0px 40px 30px -20px rgba(0, 0, 0, 0.3);
+   text-align: center;
+
+
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+
+   &.timetable {
+      height: 80vh;
+   }
+
+`
+
+
+const LayoutBlock3 = styled.div`
+   /* border: 1px solid black; */
+   background-color: white;
+   width: 40vw;
    height: 100%;
    padding: 10px;
    margin: 0 1rem;
@@ -119,16 +143,16 @@ const Layout = ({onGoback, onLogout, displayName, currentLocation,
             {
                currentLocation === '/setTimeTable' ? 
                <>
-                  <LayoutBlock2>
+                  <LayoutBlock>
                      <CartList
                onDelete={onDelete}
                lessons={lessons}
                onSave={onSave}></CartList>
-                  </LayoutBlock2>
+                  </LayoutBlock>
                   
-                  <LayoutBlock2 className="timetable">
+                  <LayoutBlock3 className="timetable">
                      <Schedule></Schedule>
-                  </LayoutBlock2>
+                  </LayoutBlock3>
                </>
                
                : null

@@ -23,6 +23,7 @@ const ArrangeMeetingContainer = () => {
             );
 
             // 주어진 문자열
+            
             const data = response.data.map((e, i) => {
                const table = e.data.replace(/\\"/g, '"');
                const ptable = JSON.parse(table);
