@@ -233,7 +233,7 @@ app.post('/api/userlist',function(req,res){
   const{name}=(req.body);
   console.log(name);
 
-  const query=`SELECT uid, data from user where uid like '%?%'`;
+  const query=`SELECT uid, data from user where uid like '%?%' AND JSON_VALID(data)`;
   conn.query(query,[parseInt(name)],(err, result, field)=>{
     let status;
     console.log(result);
