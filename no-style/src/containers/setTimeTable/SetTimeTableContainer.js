@@ -87,7 +87,9 @@ const SetTimeTableContainer = () => {
    }, []);
 
    return (
-      <div>
+      <div style={{
+         width: '100%'
+      }}>
          <div>
             <SetTimeTable onChange={onChange} onCheckOnlyOne={onCheckOnlyOne} onSearch={onSearch} value={value}></SetTimeTable>
          </div>

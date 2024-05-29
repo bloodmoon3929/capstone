@@ -51,7 +51,8 @@ const Content = styled.div`
   grid-area: content;
   display: grid;
   font-size: 1.2vmin;
-
+  width: 100%;
+  height: 100%;
   grid-template-rows: repeat(9, 1fr);
   grid-template-columns: repeat(5, 1fr);
   & > div {
@@ -61,6 +62,8 @@ const Content = styled.div`
    color: white;
    font-size: 1.6vmin;
    font-weight: 700;
+   padding: 0;
+   margin: 0;
   }
 `;
 

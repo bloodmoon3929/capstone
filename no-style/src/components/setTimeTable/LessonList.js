@@ -6,7 +6,8 @@ const LessonListItemBlock = styled.div`
    /* border: 1px solid black; */
    display: flex;
    justify-content: space-around;
-
+   width: 100%;
+   
    &:hover {
       color: rgb(150, 209, 148);
       transition: .2s;
@@ -28,7 +29,7 @@ const LessonListItem = ({ data }) => {
 
    return (
       <LessonListItemBlock onClick={onClick}>
-         <p>{data.subject}</p>
+         <p>{data.subject.slice(0, 4)}...</p>
          <p>{data.professor}</p>
          <p>{data.number}</p>
          <p>{data.score}</p>
@@ -39,9 +40,9 @@ const LessonListItem = ({ data }) => {
 
 const LessonListBlock = styled.div`
    /* border: 1px solid black; */
-   height: 35vh; /* 필요한 높이로 설정하세요 */
+   width: 100%;
+   max-height: 35vh;
    overflow-y: auto;
-
    &::-webkit-scrollbar {
       width: 8px;
       height: 8px;

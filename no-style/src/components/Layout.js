@@ -72,7 +72,7 @@ const LayoutBlock = styled.div`
 const page = {
    welcome: 40,
    setTimetable: {
-      search: 20,
+      search: 25,
       cart : 20,
       table: 40,
    },

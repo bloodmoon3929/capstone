@@ -38,6 +38,7 @@ const TimeInterval = styled.div`
   grid-template-rows: repeat(9, 1fr);
   font-size: 1.1vmin;
   & > div {
+   /* border: 1px solid black; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,6 +53,10 @@ const Content = styled.div`
   display: grid;
   font-size: 1.2vmin;
 
+
+  width: 100%;
+  height: 100%;
+
   grid-template-rows: repeat(9, 1fr);
   grid-template-columns: repeat(5, 1fr);
   & > div {
@@ -59,9 +64,10 @@ const Content = styled.div`
   }
   p {
    color: white;
-   background: rgba(0,0,0, 0.2);
    font-size: 1.6vmin;
    font-weight: 700;
+   padding: 0;
+   margin: 0;
   }
 `;
 
@@ -227,12 +233,13 @@ const Schedule = () => {
                      display: 'flex',
                      alignItems: 'center',
                      justifyContent: 'center',
-                     background: e ? `linear-gradient(10deg, ${stringToColorHash(e.subject)}, white)` : 'white',
-                     // background: e ? stringToColorHash(e.subject) : 'white',
+                     // background: e ? `linear-gradient(10deg, ${stringToColorHash(e.subject)}, white)` : 'white',
+                     // // background: e ? stringToColorHash(e.subject) : 'white',
+                     background : e ? `${stringToColorHash(e.subject)}99` : 'white',
                      opacity: 0.9,
                   }
                }
-               key={index1 + index2}><p>{e ? e.subject : ''}</p></div>     
+               key={index1 + index2}><p>{e ? `${e.subject}` : ''}</p></div>     
             ))
          ))
        }
