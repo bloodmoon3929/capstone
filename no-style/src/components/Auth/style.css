@@ -257,3 +257,37 @@
    text-decoration: none;
  }
  
+ /* 작은 태블릿 */ 
+@media (min-width: 576px) { 
+	body { 
+		width: 90%; 
+		min-height: 80vh; 
+	} 
+	.sign-in-container, .sign-up-container { 
+		width: 50%; 
+	} 
+} 
+/* 태블릿 */
+@media (min-width: 768px) { 
+	body { 
+		width: 85%; 
+		min-height: 70vh; 
+	} 
+} 
+
+
+/* 데스크탑 */ 
+@media (min-width: 992px) { 
+	body { 
+		width: 614px;
+    max-width: 80%;
+    min-height: 384px;
+	} 
+} 
+/* 큰 데스크탑 */ 
+@media (min-width: 1200px) { 
+	body { 
+		width: 100vw;
+    height: 100vh;
+	}
+}
