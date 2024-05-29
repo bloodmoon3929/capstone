@@ -11,8 +11,8 @@ const LessonDetailBlock = styled.div`
    align-items: center;
    border-radius: 8px;
    width: 100%;
-   
    box-shadow: 0px 15px 15px 10px rgba(0, 0, 0, 0.3);
+   margin-bottom: 1.5rem;
 `;
 
 const ButtonBlock = styled.div`
@@ -22,7 +22,7 @@ const ButtonBlock = styled.div`
    justify-content: space-between;
    width: 95%;
    .goBack {
-      font-size: 40px;
+      font-size: 2rem;
       transition: .2s;
       color: rgb(68, 112, 67);
 
@@ -32,7 +32,7 @@ const ButtonBlock = styled.div`
    }
 
    .add {
-      font-size: 40px;
+      font-size: 2rem;
       transition: .2s;
       color: rgb(68, 112, 67);
 
@@ -50,13 +50,18 @@ const DataBlock = styled.div`
    align-items: center;
    justify-content: space-between;
    p, h2 {
+      font-size: 0.8rem;
       margin: 0;
       padding: 0;
       /* border: 1px solid black; */
       width: 80%;
    }
 
-   margin-bottom: 20px;
+   h2 {
+      font-size: 1rem;
+   }
+
+   margin-bottom: 1rem;
 `
 
 const LessonDetail = ({data, onGotoTimeTable, onClick}) => {

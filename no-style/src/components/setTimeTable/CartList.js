@@ -7,7 +7,7 @@ const CartListBlock = styled.div`
    width: 100%;
 
    .save {
-      font-size: 40px;
+      font-size: 2rem;
       transition: .2s;
       color: rgb(68, 112, 67);
 
@@ -20,13 +20,13 @@ const CartListBlock = styled.div`
 const CartListItemBlock = styled.div`
    display: flex;
    width: 100%;
-   
+   height: 3rem;
    justify-content: space-around;
    align-items: center;
    /* border: 1px solid black; */
 
    .delete {
-      font-size: 40px;
+      font-size: 2rem;
       transition: .2s;
       color: rgb(68, 112, 67);
 
@@ -37,7 +37,13 @@ const CartListItemBlock = styled.div`
 
    h2, p {
       /* border: 1px solid black; */
-      width: 160px;
+      width: 6rem;
+      padding: 0;
+      margin: 0;
+   }
+
+   h2 {
+      font-size: 1.0rem;
    }
 
    
@@ -47,7 +53,7 @@ const CartListItem = ({data, onDelete}) => {
    return (
       <CartListItemBlock>
          <MdCancelPresentation className="delete" onClick={() => onDelete(data)} />
-         <h2>{data.subject}</h2>
+         <h2>{data.subject.slice(0, 4)}...</h2>
          <p>{data.professor}</p>
          <p>{data.number}</p>
       </CartListItemBlock>

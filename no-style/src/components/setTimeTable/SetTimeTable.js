@@ -3,9 +3,8 @@ import { IoSearchSharp } from "react-icons/io5";
 
 
 const SetTimeTableBlock = styled.div`
-   width: 15rem;
+   width: 100%;
    /* border: 1px solid black; */
-
    .form {
       width: 100%;
     display: flex;
