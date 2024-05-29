@@ -16,46 +16,35 @@ const LessonListItemBlock = styled.div`
    p {
       width: 100%;
       /* border: 1px solid black; */
-
-      
    }
 `
 
-const LessonListItem = ({data}) => {
+const LessonListItem = ({ data }) => {
    const navigate = useNavigate();
 
    const onClick = () => {
       navigate(`${data.index}`);
    }
 
-   return(
-         <LessonListItemBlock onClick={onClick}>
-            <p>{data.subject}</p>
-            <p>{data.professor}</p>
-            <p>{data.number}</p>
-            <p>{data.score}</p>
-            <p>{data.time}</p>
-         </LessonListItemBlock>
+   return (
+      <LessonListItemBlock onClick={onClick}>
+         <p>{data.subject}</p>
+         <p>{data.professor}</p>
+         <p>{data.number}</p>
+         <p>{data.score}</p>
+         <p>{data.time}</p>
+      </LessonListItemBlock>
    )
 }
 
-const AlwaysScrollSection = memo(props => {
-   const {children} = props;
-   return <LessonListBlock>
-      {children}
-   </LessonListBlock>
-})
-
 const LessonListBlock = styled.div`
    /* border: 1px solid black; */
-   overflow: scroll;
+   height: 35vh; /* 필요한 높이로 설정하세요 */
+   overflow-y: auto;
+
    &::-webkit-scrollbar {
-      /* 세로 스크롤 넓이 */
       width: 8px;
-
-      /* 가로 스크롤 높이 */
       height: 8px;
-
       border-radius: 6px;
       background: rgba(255, 255, 255, 0.4);
    }
@@ -65,18 +54,16 @@ const LessonListBlock = styled.div`
    } 
 `
 
-const LessonList = ({datas}) => {
-
-   return(
-      <AlwaysScrollSection>
+const LessonList = ({ datas }) => {
+   return (
+      <LessonListBlock>
          {
-            datas ? 
-            datas.map(e => (
-               <LessonListItem data={e} key={e.index}></LessonListItem>
-            )) : null
+            datas ?
+               datas.map(e => (
+                  <LessonListItem data={e} key={e.index}></LessonListItem>
+               )) : null
          }
-      </AlwaysScrollSection>
-
+      </LessonListBlock>
    )
 }
 
