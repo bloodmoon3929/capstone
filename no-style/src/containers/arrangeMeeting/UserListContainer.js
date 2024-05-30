@@ -19,7 +19,7 @@ const UserListContainer = ({users}) => {
       const listdata = async ()=>{
          try {
             const { uid } = JSON.parse(localStorage.getItem("user"));
-            console.log(`current uid : ${uid}`);
+
             const response = await axios.post(
                'https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/initUser',{uid}
             );

@@ -94,22 +94,11 @@ app.post('/api/save', function(req, res) {
   console.log(jLessons);
   const query=`UPDATE user SET data = ? WHERE uid = ?`;
   conn.query(query,[jLessons, uid],(err, rows, fields)=>{
-    let status;
-      if(rows.length > 0) {
-        status = 200;
-      } else {
-        status = 401;
-      }
-
-      if(err) {
-        console.log("error in update data");
-        throw err;
-       }
-       if(status == 200) {
-        res.status(status).send(rows);
-       } else {
-        res.status(status).send();
-       }
+    if(err) {
+      res.status(401).send();
+    } else {
+      res.status(200).send();
+    }
   })
 });
 

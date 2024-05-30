@@ -16,7 +16,7 @@ const LessonDetailContainer = () => {
       
       const data = select.filter(e => e.index === parseInt(index))[0];
       // console.log(index);
-      console.log(data);
+
       setData(data);
    }, [index]);
 

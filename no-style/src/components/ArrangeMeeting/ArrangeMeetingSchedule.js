@@ -78,7 +78,7 @@ const theme = {
 const ArrangeMeetingSchedule = () => {
    
    const {users} = useSelector((state) => state.users);
-   console.log(users);
+
 
    const [schedule, setSchedule] = useState([
       [...Array(5)],
@@ -105,7 +105,7 @@ const ArrangeMeetingSchedule = () => {
          [...Array(5)],
          [...Array(5)],
       ]
-      console.log(users);
+
       users.forEach((e) => {
          const ret = (e.time).match(regex) || [];
          const subject = e.subject;
@@ -117,7 +117,7 @@ const ArrangeMeetingSchedule = () => {
                const [day1, time] = day;
                const times = time.split(',').map(Number); // 쉼표로 구분된 숫자를 배열로 변환
                
-               console.log(day1, times);
+
                switch(day1) {
                   case '월':
                      times.forEach(e => {
@@ -167,7 +167,7 @@ const ArrangeMeetingSchedule = () => {
             const [day1, time] = day;
             const times = time.split(',').map(Number); // 쉼표로 구분된 숫자를 배열로 변환
             
-            console.log(day1, times);
+
             switch(day1) {
                case '월':
                   times.forEach(e => {

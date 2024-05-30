@@ -29,13 +29,11 @@ function* loginSaga(action) {
       const response = yield axios.post('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/login', body);
 
       const { token } = response.data;      
-      console.log(token);
+
       const decodedToken = jwtDecode(token);
 
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(decodedToken));
-
-      console.log({email : decodedToken.email, uid: decodedToken.uid});
 
       yield put({
          type: LOGIN_SUCCESS,

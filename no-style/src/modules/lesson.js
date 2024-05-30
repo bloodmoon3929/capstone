@@ -38,7 +38,7 @@ function* insertSaga(action) {
    const lessons = yield select(state => state.lessons.lessons);
 
 
-   console.log(lessons);
+
    if(lessons.includes(action.payload)) {
       // yield put(INSERT_LESSON_FAILURE);
       alert('이미 추가되었습니다');
@@ -131,12 +131,13 @@ function* deleteSaga(action) {
 function* saveSaga(action) {
    yield put(startLoading('lesson'));
    const lessons = yield select(state => state.lessons.lessons);
-   console.log(lessons);
+
    const uid = yield select(state => state.login.uid);
 
    
    try {
       const response = yield axios.post('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/save', {
+      //const response = yield axios.post('http://localhost:3001/api/save', {
          lessons,
          uid
       })
