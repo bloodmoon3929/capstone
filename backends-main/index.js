@@ -94,6 +94,7 @@ app.post('/api/save', function(req, res) {
   console.log(jLessons);
   const query=`UPDATE user SET data = ? WHERE uid = ?`;
   conn.query(query,[jLessons, uid],(err, rows, fields)=>{
+
     if(err) {
       res.status(401).send();
     } else {

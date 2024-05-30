@@ -141,7 +141,6 @@ function* saveSaga(action) {
          lessons,
          uid
       })
-
       yield put({
          type: SAVE_LESSON_SUCCESS,
       })
