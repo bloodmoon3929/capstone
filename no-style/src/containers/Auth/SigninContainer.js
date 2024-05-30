@@ -41,7 +41,7 @@ function SigninContainer() {
 
             if (res.status === 200) {
             const { token } = res.data;
-            console.log(res);
+
 
             // 토큰을 로컬 스토리지에 저장
             localStorage.setItem('token', token);

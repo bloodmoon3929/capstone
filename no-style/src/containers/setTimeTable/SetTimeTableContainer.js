@@ -37,7 +37,7 @@ const SetTimeTableContainer = () => {
           
 
           
-          console.log(response.data);
+
 
          //  [{강의 1}, {강의 2}]
 
@@ -72,11 +72,11 @@ const SetTimeTableContainer = () => {
 
    useEffect(() => {
       const {uid} = JSON.parse(localStorage.getItem('user'));
-      console.log(uid);
+
       const initData = async () => {
          try {
             const response = await axios.post('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/init_lesson', {uid});
-            console.log(response.data);
+
             await dispatch(initLesson(response.data));
          } catch(e) {
             console.log(e);
