@@ -20,6 +20,7 @@
 
    height: 100vh;
    width: 100vw;
+
  }
  
  h1 {
@@ -258,3 +259,33 @@
    text-decoration: none;
  }
  
+ /* 작은 태블릿 */ 
+ @media (min-width: 576px) { 
+	body { 
+		width: 48vw;
+    height: 48vh;
+	} 
+} 
+/* 태블릿 */
+@media (min-width: 768px) { 
+	body { 
+		width: 64vw;
+    height: 64vh;
+	} 
+} 
+
+
+/* 데스크탑 */ 
+@media (min-width: 992px) { 
+	body { 
+		width: 82vw;
+    height: 82vh;
+	} 
+} 
+/* 큰 데스크탑 */ 
+@media (min-width: 1200px) { 
+	body { 
+		width: 100vw;
+    height: 100vh;
+	}
+}
