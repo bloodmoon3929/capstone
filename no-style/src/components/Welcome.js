@@ -2,15 +2,15 @@ import styled from "styled-components";
 
 const ButtonBlock = styled.div`
    width: 30vw;
-   height: 15vw;
+   height: 10vw;
    /* border: 1px solid black; */
    display: flex;
    justify-content: center;
    align-items: center;
    .btn {
       border: none;
-      width: 40%;
-      height: 30%;
+      width: 10vw;
+      height: 10vh;
       background-color: rgb(68, 112, 67);
       color: white;
       padding: 15px 0;
@@ -18,7 +18,7 @@ const ButtonBlock = styled.div`
       border-radius: 5px;
       cursor: pointer;
       transition: .2s;
-      font-size: 20px;
+      font-size: 1rem;
       margin: 10px;
     }
     .btn:hover {

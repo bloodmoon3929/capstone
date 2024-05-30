@@ -36,18 +36,74 @@ const initialState = {
 function* insertSaga(action) {
    yield put(startLoading('lesson'));
    const lessons = yield select(state => state.lessons.lessons);
+
+
+   console.log(lessons);
    if(lessons.includes(action.payload)) {
       // yield put(INSERT_LESSON_FAILURE);
+      alert('이미 추가되었습니다');
       yield put({
          type: INSERT_LESSON_FAILURE,
          payload: 'already added'
       });
       
    } else {
-      yield put({
-         type: INSERT_LESSON_SUCCESS,
-         payload: action.payload
-      })
+      function parseSchedule(schedule) {
+         const days = ["월", "화", "수", "목", "금", "토", "일"];
+         const parsed = {};
+         days.forEach(day => {
+            const regex = new RegExp(`\\(${day}\\)(\\d+(,\\d+)*)`, "g");
+            const matches = schedule.match(regex);
+            if (matches) {
+                  matches.forEach(match => {
+                     const times = match.slice(2).split(',');
+                     if (!parsed[day]) {
+                        parsed[day] = new Set();
+                     }
+                     times.forEach(time => parsed[day].add(time));
+                  });
+            }
+         });
+         return parsed;
+      }
+   
+      function isConflict(schedule1, schedule2) {
+         for (let day in schedule1) {
+            if (schedule2[day]) {
+                  for (let time of schedule1[day]) {
+                     if (schedule2[day].has(time)) {
+                        return true;
+                     }
+                  }
+            }
+         }
+         return false;
+      }
+   
+      function addLecture(existing, newLecture) {
+         const newSchedule = parseSchedule(newLecture.time);
+         for (let lecture of existing) {
+            const existingSchedule = parseSchedule(lecture.time);
+            if (isConflict(existingSchedule, newSchedule)) {
+                  return false;
+            }
+         }
+         return true;
+      }
+   
+      if(addLecture(lessons, action.payload)) {
+         yield put({
+            type: INSERT_LESSON_SUCCESS,
+            payload: action.payload
+         })
+      } else {
+         yield put({
+            type: INSERT_LESSON_FAILURE,
+            payload: 'time conflict'
+         });
+         alert('시간이 겹치는 강의가 존재합니다.');
+      }
+      
       // yield put(INSERT_LESSON_SUCCESS);
    }
    yield put(finishLoading('lesson'));
@@ -67,6 +123,7 @@ function* deleteSaga(action) {
          type: DELETE_LESSON_FAILURE,
          payload: 'no exist'
       })
+      alert('존재하지 않는 강의입니다.');
       yield put(finishLoading('lesson'));
    }
 }
@@ -87,10 +144,12 @@ function* saveSaga(action) {
       yield put({
          type: SAVE_LESSON_SUCCESS,
       })
+      alert('저장되었습니다');
    } catch(e) {
       yield put({
          type: SAVE_LESSON_FAILURE,
       })
+      alert('오류가 발생하였습니다');
    }
    yield put(finishLoading('lesson'));
 }

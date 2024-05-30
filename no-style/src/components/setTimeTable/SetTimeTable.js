@@ -37,7 +37,7 @@ const InputWrapper = styled.div`
    align-items: center;
    width: 10rem;
    .keyword_search {
-      border: 1px solid rgb(68, 112, 67);;
+      border: 1px solid rgba(68, 112, 67, 0.3);;
       border-radius: 5px;
       background: none;
       padding: 10px;
@@ -50,7 +50,7 @@ const InputWrapper = styled.div`
    .keyword_search:focus,
    .keyword_search:hover {
       outline: none;
-      border-bottom-color: rgb(68, 112, 67);
+      box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 3px 3px rgba(0, 0, 0, 0.22);
    }
 
    .search_btn {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { stringToColorHash } from '../../modules/color';
+import { RiArrowGoBackFill } from 'react-icons/ri';
 
 
 // styled-components로 스타일을 정의합니다.
@@ -235,14 +236,14 @@ const ArrangeMeetingSchedule = () => {
                      justifyContent: 'center',
                      // background: e ? `linear-gradient(10deg, ${stringToColorHash(e.subject)}, white)` : 'white',
                      // // background: e ? stringToColorHash(e.subject) : 'white',
-                     background : e ? `${stringToColorHash(e.subject)}99` : 'white',
+                     background : e ? `#F0808099` : '#B0E0E6',
                      opacity: 0.9,
                   }
                }
                key={index1 + index2}><p style={{
                   margin: 0,
                   padding: 0,
-               }}>{e ? e.subject : ''}</p></div>     
+               }}>{e ? '미팅 불가' : '미팅 가능'}</p></div>     
             ))
          ))
        }
