@@ -39,7 +39,7 @@ const LayoutBlock = styled.div`
       align-items: center;
 
       .logout {
-         font-size: 40px;
+         font-size: 2rem;
          transition: .2s;
          color: rgb(68, 112, 67);
 
@@ -49,7 +49,7 @@ const LayoutBlock = styled.div`
       }
 
       .back {
-         font-size: 40px;
+         font-size: 2rem;
          transition: .2s;
          color: rgb(68, 112, 67);
 
@@ -58,7 +58,7 @@ const LayoutBlock = styled.div`
          }
       }
       .home {
-         font-size: 40px;
+         font-size: 2rem;
          transition: .2s;
          color: rgb(68, 112, 67);
 
@@ -70,7 +70,7 @@ const LayoutBlock = styled.div`
 `
 
 const page = {
-   welcome: 40,
+   welcome: 30,
    setTimetable: {
       search: 25,
       cart : 20,

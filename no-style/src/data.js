@@ -28873,30 +28873,6 @@ export const data =
       "수업유형": "대면"
     },
     {
-      "index": 1204,
-      "주야": "야간",
-      "대학": "ICC대학부",
-      "학과": "회계학부",
-      "구분": "",
-      "전공(영역)": "회계",
-      "이수구분": "전공선택",
-      "학년": 4,
-      "number": 109620,
-      "subject": "캡스톤디자인",
-      "seperated": "06",
-      "score": 3,
-      "이론": 3,
-      "실습": 0,
-      "professor": "안창호",
-      "time": "(화)11,12,13",
-      "장소": "사회관-2327",
-      "time2": "",
-      "장소2": "",
-      "time3": "",
-      "장소3": "",
-      "수업유형": "대면"
-    },
-    {
       "index": 1205,
       "주야": "야간",
       "대학": "ICC대학부",
@@ -36985,3 +36961,45 @@ export const data =
       "수업유형": "대면"
     }
   ]
+
+  function parseSchedule(schedule) {
+    const days = ["월", "화", "수", "목", "금", "토", "일"];
+    const parsed = {};
+    days.forEach(day => {
+        const regex = new RegExp(`\\(${day}\\)(\\d+(,\\d+)*)`, "g");
+        let match;
+        while (match = regex.exec(schedule)) {
+            const times = match[1].split(',');
+            if (!parsed[day]) {
+                parsed[day] = new Set();
+            }
+            times.forEach(time => parsed[day].add(time));
+        }
+    });
+    return parsed;
+}
+
+const obj = {
+  "index": 1204,
+  "주야": "야간",
+  "대학": "ICC대학부",
+  "학과": "회계학부",
+  "구분": "",
+  "전공(영역)": "회계",
+  "이수구분": "전공선택",
+  "학년": 4,
+  "number": 109620,
+  "subject": "캡스톤디자인",
+  "seperated": "06",
+  "score": 3,
+  "이론": 3,
+  "실습": 0,
+  "professor": "안창호",
+  "time": "(화)11,12,13",
+  "장소": "사회관-2327",
+  "time2": "",
+  "장소2": "",
+  "time3": "",
+  "장소3": "",
+  "수업유형": "대면"
+};
