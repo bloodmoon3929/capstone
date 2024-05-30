@@ -96,7 +96,7 @@ app.post('/api/save', function(req, res) {
   conn.query(query,[jLessons, uid],(err, rows, fields)=>{
     let status;
       if(rows.length > 0) {
-        status = 200;
+        status = 201;
       } else {
         status = 401;
       }

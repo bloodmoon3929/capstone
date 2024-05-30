@@ -76,8 +76,10 @@ const SetTimeTable = ({onChange, onCheckOnlyOne, onSearch,
             </InputWrapper>
             
             <CheckboxWrapper>
-               <input type="checkbox" name="filter" value="subject" onChange={onCheckOnlyOne} /> <p> 과목명</p>
-               <input type="checkbox" name="filter" value="professor" onChange={onCheckOnlyOne} /> <p> 교수명</p>
+               <input id="subject" type="checkbox" name="filter" value="subject" onChange={onCheckOnlyOne} />
+               <label for="subject">과목명</label>
+               <input id="professor" type="checkbox" name="filter" value="professor" onChange={onCheckOnlyOne} /> <p> 교수명</p>
+               <label for="professor">교수명</label>
             </CheckboxWrapper>
           
          </form>
