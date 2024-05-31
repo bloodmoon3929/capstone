@@ -54,7 +54,8 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/lesson/getSearchedLessons', function(req, res) {
-  console.log('/searchlesson')
+
+  console.log(req);
   const {keyword, type} = req.body;
   console.log(`keyword : ${keyword}, type : ${type}`);
   const query=`SELECT app.index, subject, professor, number, score, time, time2, time3 from app where ${type} like '%${keyword}%'`;
