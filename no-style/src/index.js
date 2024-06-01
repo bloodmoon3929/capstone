@@ -9,6 +9,8 @@ import rootReducer, { rootSaga } from './modules';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import { ThemeProvider } from 'styled-components';
+import theme from './modules/theme';
 
 const sagaMiddleware = createSagaMiddleware();
 //const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
@@ -19,7 +21,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   </BrowserRouter>
   
