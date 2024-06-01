@@ -194,7 +194,7 @@ const lessons = handleActions({
       ...state
    }),
    [SELECT_LESSON]: (state, {payload: lessons}) => ({
-      ...state,
+      //...state,
       select: lessons
    }),
    [INIT_LESSON] : (state, {payload: lessons}) => ({
