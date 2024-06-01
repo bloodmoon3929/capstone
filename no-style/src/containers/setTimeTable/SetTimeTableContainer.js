@@ -28,15 +28,16 @@ const SetTimeTableContainer = () => {
 
 
       try {
-         /// 수정해야하는 부분 1
          const response = await axios.post('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/lesson/getSearchedLessons', {
             keyword: value,
             type
          })
+         // 성능 테스트시 사용함
+         // const response = await axios.post('http://localhost:3001/lesson/getSearchedLessons', {
+         //    keyword: value,
+         //    type
+         // })
           /// 예시) 강영흥 검색하면 교수명이 강영흥인 강의들을 모두 불러옴
-          
-
-          
 
 
          //  [{강의 1}, {강의 2}]
