@@ -184,9 +184,9 @@ app.post('/signup', function(req, res){
     else//중복이 없을때
     {
       console.log('db에 저장함');
-      const query2 = 'INSERT INTO user (email, password, uid) VALUES (?, ?, ?)';
+      const query2 = 'INSERT INTO user (email, password, uid, data) VALUES (?, ?, ?, ?)';
 
-      conn.query(query2,[email, hashedPassword, uid],(err,resu)=>{
+      conn.query(query2,[email, hashedPassword, uid, []],(err,resu)=>{
         if(err) {
           console.error("Error while inserting data", err);
           res.status(500).send("Error while inserting data");
