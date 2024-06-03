@@ -139,7 +139,7 @@ const SignUpForm = () => {
             const { token } = res.data;
             localStorage.setItem('token', token);
             
-            const decodedToken = jwtDecode(token);
+            const decodedToken = JSON.stringify(jwtDecode(token));
             localStorage.setItem('user', decodedToken);
 
             await dispatch(usereffect({

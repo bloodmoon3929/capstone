@@ -77,7 +77,7 @@ const SetTimeTableContainer = () => {
       const initData = async () => {
          try {
             const response = await axios.post('https://port-0-capstone-ss7z32llwlubbov.sel5.cloudtype.app/api/init_lesson', {uid});
-
+            console.log(response);
             await dispatch(initLesson(response.data));
          } catch(e) {
             console.log(e);
