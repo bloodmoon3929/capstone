@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'FDSF412QWE32';
+const bcrypt = require('bcrypt');
 
 
 
@@ -32,24 +33,35 @@ app.post('/login', function(req, res) {
     const {email, password} = req.body;
     
 
-    const query='SELECT uid, email from user where email = ? AND password = ?';
-    conn.query(query,[email, password],(error, rows, fields) => {
-
-      if(rows.length > 0) {
-        ///정상적인 응답의 경우
-        ///쿼리문을 통해서 email하고 uid를 받아 res로 전달함
-        const token = jwt.sign(rows[0], SECRET_KEY, { expiresIn: '1h' });
-        res.status(200).json({token});
-      } else {
-        ///비정상적인 응답의 경우 401
-        res.status(401).send();
-      }
-
-       if(error) {
+    const query='SELECT uid, email from user where email = ?';
+    conn.query(query,[email],(error, rows, fields) => {
+      if(error) 
+      {
         console.log('db관련 오류');
         throw error;
-       }
-
+      }
+      if(rows.length > 0) {
+        bcrypt.compare(password, req[0].password, (err, result=>{
+          if (err) {
+            console.error('bcrypt 비교 중 오류 발생', err);
+            res.status(500).send('Server error');
+            return;
+          }
+          if(result)
+          {
+              ///정상적인 응답의 경우
+              ///쿼리문을 통해서 email하고 uid를 받아 res로 전달함
+          const token = jwt.sign(rows[0], SECRET_KEY, { expiresIn: '1h' });
+          res.status(200).json({token});
+          }
+          else {
+            ///비정상적인 응답의 경우 401
+            res.status(401).send();
+          }
+        }))
+    } else {
+        res.status(401).send('Invalid credentials');
+    }
     });
 });
 
@@ -155,6 +167,7 @@ app.get('/api/auth-check', (req, res) => {
 app.post('/signup', function(req, res){
   console.log('/signup');
   const {email, password, uid} = req.body;
+  const hasedPassword = bcrypt.hashSync(password, 10);
   console.log(email, password, uid);
 
   
@@ -172,7 +185,7 @@ app.post('/signup', function(req, res){
       console.log('db에 저장함');
       const query2 = 'INSERT INTO user (email, password, uid) VALUES (?, ?, ?)';
 
-      conn.query(query2,[email, password, uid],(err,resu)=>{
+      conn.query(query2,[email, hasedPassword, uid],(err,resu)=>{
         if(err) {
           console.error("Error while inserting data", err);
           res.status(500).send("Error while inserting data");
