@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = 'FDSF412QWE32';
-
+const bcrypt = require('bcryptjs');
 
 
 
@@ -29,29 +29,41 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.post('/login', function(req, res) {
-    console.log('/login');
-    const {email, password} = req.body;
-    
+  console.log('/login');
+  const { email, password } = req.body;
 
-    const query='SELECT uid, email from user where email = ? AND password = ?';
-    conn.query(query,[email, password],(error, rows, fields) => {
-
-      if(rows.length > 0) {
-        ///정상적인 응답의 경우
-        ///쿼리문을 통해서 email하고 uid를 받아 res로 전달함
-        const token = jwt.sign(rows[0], SECRET_KEY, { expiresIn: '1h' });
-        res.status(200).json({token});
-      } else {
-        ///비정상적인 응답의 경우 401
-        res.status(401).send();
+  const query = 'SELECT uid, email, password FROM user WHERE email = ?';
+  conn.query(query, [email], (error, rows, fields) => {
+      if (error) {
+          console.log('db관련 오류');
+          res.status(500).send('DB error');
+          throw error;
       }
 
-       if(error) {
-        console.log('db관련 오류');
-        throw error;
-       }
+      if (rows.length > 0) {
+          // 사용자 정보가 존재할 때
+          const hashedPassword = rows[0].password;
 
-    });
+          bcrypt.compare(password, hashedPassword, (err, result) => {
+              if (err) {
+                  res.status(500).send('bcrypt 오류');
+                  return;
+              }
+
+              if (result) {
+                  // 비밀번호 일치
+                  const token = jwt.sign({ email: rows[0].email, uid: rows[0].uid }, SECRET_KEY, { expiresIn: '1h' });
+                  res.status(200).json({ token });
+              } else {
+                  // 비밀번호 불일치
+                  res.status(401).send('Invalid credentials');
+              }
+          });
+      } else {
+          // 사용자 정보가 존재하지 않을 때
+          res.status(401).send('Invalid credentials');
+      }
+  });
 });
 
 app.post('/lesson/getSearchedLessons', function(req, res) {
@@ -157,6 +169,7 @@ app.post('/signup', function(req, res){
   console.log('/signup');
   const {email, password, uid} = req.body;
   console.log(email, password, uid);
+  const hashedPassword = bcrypt.hashSync(password, 10);
 
   
 
@@ -173,7 +186,7 @@ app.post('/signup', function(req, res){
       console.log('db에 저장함');
       const query2 = 'INSERT INTO user (email, password, uid) VALUES (?, ?, ?)';
 
-      conn.query(query2,[email, password, uid],(err,resu)=>{
+      conn.query(query2,[email, hashedPassword, uid],(err,resu)=>{
         if(err) {
           console.error("Error while inserting data", err);
           res.status(500).send("Error while inserting data");
