@@ -20,7 +20,7 @@ var db_info = {
     user: "tester",
     password: "1234",
     database: "test",
-    port: 30235
+    port: 30619
 };
 
 module.exports = {
